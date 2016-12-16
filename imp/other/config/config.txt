@@ -1,0 +1,5 @@
+jdbc:mysql://localhost:3306/
+dbjavafx
+root
+
+com.mysql.jdbc.Driver
