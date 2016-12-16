@@ -1,23 +1,27 @@
 package com.app.controller;
 
+import java.io.FileInputStream;
+import java.net.URL;
+import java.util.ResourceBundle;
+
 import com.app.database.DBLoginManager;
 import com.app.event.ControllerEvent;
 import com.app.event.LoginEvent;
 import com.app.listener.ControllerListener;
-import com.app.main.Main;
 import com.app.model.User;
-import com.app.util.Initializer;
 
+import javafx.animation.FadeTransition;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.Node;
+import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
-import javafx.stage.Stage;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 
-public class LoginController implements ControllerListener{
+public class LoginController implements Initializable, ControllerListener{
 	
 	@FXML
 	private Label welcomeLabel;
@@ -27,11 +31,13 @@ public class LoginController implements ControllerListener{
 	private PasswordField passwordField;
 	@FXML
 	private Button buttonLogin;
+	@FXML
+	private ImageView imageView;
 	private static DBLoginManager manager;
 	private static LoginController loginController;
 	
 	@FXML
-	public void handleOnAction(ActionEvent event){
+	public synchronized void handleOnAction(ActionEvent event) throws Exception{
 		
 		String username = usernameField.getText();
 		String password = passwordField.getText();
@@ -49,10 +55,11 @@ public class LoginController implements ControllerListener{
 		loginEvent.setIsSuccess(isSuccess);
 		loginEvent.setUser(user);
 		
-		((Stage) ((Node)event.getSource()).getScene().getWindow()).close();
 		
-		Initializer.addLoginListener(Main.getInstance());
-		Initializer.callLoginListener(loginEvent);
+//		((Stage) ((Node)event.getSource()).getScene().getWindow()).close();
+//		
+//		Initializer.addLoginListener(Main.getInstance());
+//		Initializer.callLoginListener(loginEvent);
 	
 	}
 
@@ -62,6 +69,17 @@ public class LoginController implements ControllerListener{
 			manager = (DBLoginManager) event.getManager();
 		}
 		
+	}
+	
+	@Override
+	public void initialize(URL url, ResourceBundle bundle) {
+		try{
+			Image image = new Image(new FileInputStream("imp/img/icon/spin.gif"));
+			imageView.setImage(image);
+			
+		}catch(Exception e){
+			e.printStackTrace();
+		}
 	}
 
 	public static LoginController getInstance(){

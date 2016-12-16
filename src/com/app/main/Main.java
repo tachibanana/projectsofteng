@@ -20,7 +20,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import javafx.stage.StageStyle;
 
 public class Main extends Application implements LoginListener{
 	
@@ -28,11 +27,13 @@ public class Main extends Application implements LoginListener{
 	private Stage primaryStage;
 	private static Main main;
 	private DBManager manager;
+	private Boolean isLoginSuccess = false;
+	
 	private final String DIRECTORY_PATH = getClass()
 			.getResource("../../../")
 			.toString()
 			.replaceAll("/bin", "");
-	
+
 	@Override
 	public void start(Stage primaryStage){
 		try{
@@ -62,7 +63,7 @@ public class Main extends Application implements LoginListener{
 		loginStage.setTitle("Login");
 		
 		Parent root = (Parent) FXMLLoader.load(new URL(this.DIRECTORY_PATH + "/imp/fxml/login.fxml"));
-		Scene scene = new Scene(root, 530 , 420);
+		Scene scene = new Scene(root, 520 , 380);
 		scene.getStylesheets().add(this.DIRECTORY_PATH + "/imp/css/login.css");
 		
 		ControllerEvent event = new ControllerEvent();
@@ -73,7 +74,7 @@ public class Main extends Application implements LoginListener{
 		Initializer.callControllerListener(event);
 		
 		loginStage.setScene(scene);
-		loginStage.show();
+		loginStage.showAndWait();
 	
 	}
 	

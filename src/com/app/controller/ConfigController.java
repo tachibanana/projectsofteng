@@ -39,18 +39,8 @@ public class ConfigController implements ControllerListener{
 	private VBox messagePanel;
 	@FXML
 	private Label messageLabel;
-
-	
 	private static DBManager manager;
 	private static ConfigController configController;
-	
-	@Override
-	public void controllerLoad(ControllerEvent event) {
-		
-		if(event.getClazz().trim().equals(getClass().getCanonicalName())){
-			manager = event.getManager();	
-		}
-	}
 	
 	@FXML
 	public void handleTestOnAction(){
@@ -85,18 +75,6 @@ public class ConfigController implements ControllerListener{
 		}
 	}
 	
-	private void addFadeInAnimation(Node node){
-		try{
-			FadeTransition ft = new FadeTransition(Duration.millis(1500), node);
-			ft.setFromValue(0);
-			ft.setToValue(1);
-			ft.play();
-			
-		}catch(Exception e){
-			e.printStackTrace();
-		}
-	}
-	
 	@FXML
 	public void handleSaveOnAction(ActionEvent event) throws Exception{
 		StringBuilder str = new StringBuilder();
@@ -117,6 +95,25 @@ public class ConfigController implements ControllerListener{
 		
 	}
 	
+	@Override
+	public void controllerLoad(ControllerEvent event) {
+		
+		if(event.getClazz().trim().equals(getClass().getCanonicalName())){
+			manager = event.getManager();	
+		}
+	}
+	
+	private void addFadeInAnimation(Node node){
+		try{
+			FadeTransition ft = new FadeTransition(Duration.millis(1500), node);
+			ft.setFromValue(0);
+			ft.setToValue(1);
+			ft.play();
+			
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+	}
 	
 	public static ConfigController getInstance(){
 		if(configController == null)
