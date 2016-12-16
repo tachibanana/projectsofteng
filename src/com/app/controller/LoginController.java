@@ -30,12 +30,6 @@ public class LoginController implements ControllerListener{
 	private static DBLoginManager manager;
 	private static LoginController loginController;
 	
-	public static LoginController getInstance(){
-		if(loginController == null)
-			loginController = new LoginController();
-		return loginController;
-	}
-	
 	@FXML
 	public void handleOnAction(ActionEvent event){
 		
@@ -70,5 +64,10 @@ public class LoginController implements ControllerListener{
 		
 	}
 
+	public static LoginController getInstance(){
+		if(loginController == null)
+			loginController = new LoginController();
+		return loginController;
+	}
 
 }

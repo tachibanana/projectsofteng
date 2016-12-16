@@ -19,6 +19,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 public class Main extends Application implements LoginListener{
 	
@@ -34,8 +35,9 @@ public class Main extends Application implements LoginListener{
 	@Override
 	public void start(Stage primaryStage){
 		try{
-			initilizedDatabaseConn();
-			displayLogin();
+			initilizeDatabaseConn();
+			displayConfig();
+			//displayLogin();
 			 
 			
 		}catch(Exception e){
@@ -78,18 +80,43 @@ public class Main extends Application implements LoginListener{
 	}
 
 	//Initialize database connection
-	public void initilizedDatabaseConn(){
-		Scanner config = getConfig();
+	public void initilizeDatabaseConn(){
+		try{
+			Scanner config = getConfig();
+			
+			if(config != null){
+				manager = new DBLoginManager();
+				manager.setDatabaseConnection(
+						new MySQLConnection(
+								config.nextLine().trim(),
+								config.nextLine().trim(),
+								config.nextLine().trim(),
+								config.nextLine().trim(),
+								config.nextLine().trim()));
+				manager.openConnection();
+			}else{
+				displayConfig();
+			}
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+	}
+	
+	//Display Config
+	public void displayConfig() throws IOException{
+		Stage configStage = new Stage();
+		configStage.setTitle("Database Configuration");
+		configStage.setResizable(false);
+		configStage.setMaximized(false);
 		
-		manager = new DBLoginManager();
-		manager.setDatabaseConnection(
-				new MySQLConnection(
-						config.nextLine().trim(),
-						config.nextLine().trim(),
-						config.nextLine().trim(),
-						config.nextLine().trim(),
-						config.nextLine().trim()));
-		manager.openConnection();
+		Parent root = FXMLLoader.load(new URL(this.DIRECTORY_PATH + "/imp/fxml/config.fxml"));
+		
+		Scene scene = new Scene(root, 350.0 , 320.0);
+		scene.getStylesheets().add(this.DIRECTORY_PATH + "/imp/css/config.css");
+		
+		configStage.setScene(scene);
+		configStage.show();
+		
 	}
 	
 	//Database config
