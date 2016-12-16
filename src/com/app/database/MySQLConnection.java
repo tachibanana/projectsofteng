@@ -18,7 +18,7 @@ public class MySQLConnection extends DBUserLibrary implements DatabaseConnection
 			Connection conn = DriverManager.getConnection(getConnectionURL());
 			return conn;
 		} catch (SQLException | ClassNotFoundException e) {
-			e.printStackTrace();
+			//e.printStackTrace();
 			return null;
 		}
 	}

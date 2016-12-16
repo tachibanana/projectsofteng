@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.Scanner;
 
+import com.app.controller.ConfigController;
 import com.app.controller.LoginController;
 import com.app.database.DBLoginManager;
 import com.app.database.DBManager;
@@ -35,9 +36,11 @@ public class Main extends Application implements LoginListener{
 	@Override
 	public void start(Stage primaryStage){
 		try{
-			initilizeDatabaseConn();
-			displayConfig();
-			//displayLogin();
+			while(!initilizeDatabaseConn()){
+				displayConfig();
+			}
+			
+			displayLogin();
 			 
 			
 		}catch(Exception e){
@@ -80,12 +83,14 @@ public class Main extends Application implements LoginListener{
 	}
 
 	//Initialize database connection
-	public void initilizeDatabaseConn(){
+	public Boolean initilizeDatabaseConn(){
 		try{
 			Scanner config = getConfig();
+			Boolean flag = false;
+			manager = new DBLoginManager();
 			
 			if(config != null){
-				manager = new DBLoginManager();
+				
 				manager.setDatabaseConnection(
 						new MySQLConnection(
 								config.nextLine().trim(),
@@ -94,11 +99,15 @@ public class Main extends Application implements LoginListener{
 								config.nextLine().trim(),
 								config.nextLine().trim()));
 				manager.openConnection();
-			}else{
-				displayConfig();
+				
+				if(manager.getConnection() != null)
+					flag = true;
 			}
+			
+			return flag;
 		}catch(Exception e){
 			e.printStackTrace();
+			return false;
 		}
 	}
 	
@@ -114,8 +123,15 @@ public class Main extends Application implements LoginListener{
 		Scene scene = new Scene(root, 350.0 , 320.0);
 		scene.getStylesheets().add(this.DIRECTORY_PATH + "/imp/css/config.css");
 		
+		ControllerEvent event = new ControllerEvent();
+		event.setManager(manager);
+		event.setClazz(ConfigController.getInstance().getClass().getCanonicalName());
+		
+		Initializer.addControllerListener(ConfigController.getInstance());
+		Initializer.callControllerListener(event);
+		
 		configStage.setScene(scene);
-		configStage.show();
+		configStage.showAndWait();
 		
 	}
 	

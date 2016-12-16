@@ -1,24 +1,24 @@
 
-#button_confirm{
+#button_test{
 	-fx-background-color:#2ecc71;
 	-fx-text-fill: #ffffff;
 }
 
-#button_confirm:hover{
+#button_test:hover{
 	-fx-background-color:#27ae60;
 }
 
-#button_confirm:pressed{
+#button_test:pressed{
 	-fx-background-color: gray;
 }
 
 #button_save{
-	-fx-background-color:#95a5a6;
+	-fx-background-color:#e67e22;
 	-fx-text-fill: #ffffff;
 }
 
 #button_save:hover{
-	-fx-background-color:#7f8c8d;
+	-fx-background-color:#d35400;
 }
 
 #button_save:pressed{
