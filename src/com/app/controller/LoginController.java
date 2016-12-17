@@ -26,6 +26,7 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.util.Duration;
@@ -51,71 +52,13 @@ public class LoginController implements Initializable, ControllerListener{
 	private static LoginController loginController;
 	private static Attempt attempt;
 	
-	@FXML
-	public synchronized void handleOnAction(ActionEvent event) throws Exception{
-		
-		String username = usernameField.getText();
-		String password = passwordField.getText();
-		User user = null;
-		Boolean isSuccess = false;
-
-		attempt.setNumberOfAttempt(attempt.getNumberOfAttempt() + 1);
-		attempt.setLastAttempt(Calendar.getInstance());
-
-		if(attempt.getNumberOfAttempt() < 3){
-			if((user = manager.getUserWithUsernameAndPassword(username, password)) != null){
-				isSuccess = true;
-				messagePanel.setStyle("-fx-background-color:#2ecc71");
-				messageLabel.setText("welcome back " + user.getFirstName() + " " + user.getLastName() + "!");
-				addFadeAnimation(messagePanel);
-				
-				LoginEvent loginEvent = new LoginEvent();
-				loginEvent.setIsSuccess(isSuccess);
-				loginEvent.setUser(user);
-				
-				Initializer.addLoginListener(Main.getInstance());
-				Initializer.callLoginListener(loginEvent);
-				
-				((Stage) ((Node)event.getSource()).getScene().getWindow()).close();	
-			}else{
-				messagePanel.setStyle("-fx-background-color:#e74c3c");
-				messageLabel.setText("Incorrect username or password.");
-				addFadeAnimation(messagePanel);
-				Instruction.setLoginAttempt(attempt);	
-			}
-		}else{
-			usernameField.setDisable(true);
-			passwordField.setDisable(true);
-			buttonLogin.setDisable(true);
-			
-			messagePanel.setStyle("-fx-background-color:#d35400");
-			messageLabel.setText("Too many failed login attempts. Please wait and try again.");
-			addFadeAnimation(messagePanel);
-			Instruction.setLoginAttempt(attempt);
-		}
-	}
-
-	@Override
-	public void controllerLoad(ControllerEvent event) {
-		if(event.getClazz().trim().equals(getClass().getCanonicalName().trim())){
-			manager = (DBLoginManager) event.getManager();
-			attempt = Instruction.getLoginAttempt();
-		}
-		
-	}
-	
-	public void addFadeAnimation(Node node){
-		FadeTransition ft = new FadeTransition(Duration.millis(1000), node);
-		ft.setFromValue(0);
-		ft.setToValue(1);
-		ft.play();
-	}
-	
 	@Override
 	public void initialize(URL url, ResourceBundle bundle) {
 		try{
 			Image image = new Image(new FileInputStream("imp/img/icon/spin.gif"));
 			imageView.setImage(image);
+			buttonLogin.setDisable(true);
+			
 			attempt = Instruction.getLoginAttempt();
 			
 			if(attempt.getNumberOfAttempt() >= 3){
@@ -132,8 +75,77 @@ public class LoginController implements Initializable, ControllerListener{
 		}
 	}
 	
-	public void login(){
+	@FXML
+	public synchronized void handleOnAction(ActionEvent event) throws Exception{
 		
+		String username = usernameField.getText();
+		String password = passwordField.getText();
+		User user = null;
+		Boolean isSuccess = false;
+
+		attempt.setNumberOfAttempt(attempt.getNumberOfAttempt() + 1);
+		attempt.setLastAttempt(Calendar.getInstance());
+
+		if(attempt.getNumberOfAttempt() <= 3){
+			if((user = manager.getUserWithUsernameAndPassword(username, password)) != null){
+				isSuccess = true;
+				messagePanel.setStyle("-fx-background-color:#2ecc71");
+				messageLabel.setText("welcome back " + user.getFirstName() + " " + user.getLastName() + "!");
+				addFadeAnimation(messagePanel);
+				
+				LoginEvent loginEvent = new LoginEvent();
+				loginEvent.setIsSuccess(isSuccess);
+				loginEvent.setUser(user);
+				
+				Initializer.addLoginListener(Main.getInstance());
+				Initializer.callLoginListener(loginEvent);
+				
+				Instruction.setLoginAttempt(null);
+				
+				((Stage) ((Node)event.getSource()).getScene().getWindow()).close();	
+			}else if(attempt.getNumberOfAttempt() == 3){
+				usernameField.setDisable(true);
+				passwordField.setDisable(true);
+				buttonLogin.setDisable(true);
+				
+				messagePanel.setStyle("-fx-background-color:#d35400");
+				messageLabel.setText("Too many failed login attempts. Please wait and try again.");
+				addFadeAnimation(messagePanel);
+				
+				Instruction.setLoginAttempt(attempt);
+			}else{
+				messagePanel.setStyle("-fx-background-color:#e74c3c");
+				messageLabel.setText("Incorrect username or password.");
+				addFadeAnimation(messagePanel);
+				
+				Instruction.setLoginAttempt(attempt);	
+			}
+		}
+	}
+
+	
+	@FXML
+	public void onKeyReleased(KeyEvent event){
+		if(!usernameField.getText().trim().equals("") && !passwordField.getText().trim().equals(""))
+			buttonLogin.setDisable(false);
+		else
+			buttonLogin.setDisable(true);
+	}
+	
+	@Override
+	public void controllerLoad(ControllerEvent event) {
+		if(event.getClazz().trim().equals(getClass().getCanonicalName().trim())){
+			manager = (DBLoginManager) event.getManager();
+			attempt = Instruction.getLoginAttempt();
+		}
+		
+	}
+	
+	public void addFadeAnimation(Node node){
+		FadeTransition ft = new FadeTransition(Duration.millis(1000), node);
+		ft.setFromValue(0);
+		ft.setToValue(1);
+		ft.play();
 	}
 
 	public static LoginController getInstance(){

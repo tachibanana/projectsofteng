@@ -28,7 +28,12 @@ public class ConfirmWindow {
 			});
 			
 			VBox box = new VBox(10);
-			box.setAlignment(Pos.CENTER);
+			box.setAlignment(Pos.TOP_CENTER);
+			
+			VBox header = new VBox();
+			header.setPrefHeight(5);
+			header.setMinSize(0, 5);
+			header.setStyle("-fx-background-color: #1abc9c");
 			
 			Label label = new Label(message);
 			label.setTextAlignment(TextAlignment.CENTER);
@@ -53,9 +58,9 @@ public class ConfirmWindow {
 			});
 			
 			buttonContainer.getChildren().addAll(buttonYes,buttonNo);
-			box.getChildren().addAll(label , buttonContainer);
+			box.getChildren().addAll(header, label , buttonContainer);
 			
-			Scene scene = new Scene(box , 300 , 100);
+			Scene scene = new Scene(box , 300 , 80);
 			scene.getStylesheets().add(Main.getInstance().DIRECTORY_PATH + "/imp/css/confirm_window.css");
 			stage.setScene(scene);
 			stage.showAndWait();

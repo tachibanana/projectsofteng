@@ -1,8 +1,5 @@
 package com.app.main;
 
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.List;
 import java.util.Scanner;
 
 import com.app.database.DBLoginManager;
@@ -13,6 +10,7 @@ import com.app.listener.LoginListener;
 import com.app.util.Instruction;
 import com.app.window.ConfigWindow;
 import com.app.window.LoginWindow;
+import com.app.window.PrimaryWindow;
 
 import javafx.application.Application;
 import javafx.stage.Stage;
@@ -22,8 +20,7 @@ public class Main extends Application implements LoginListener{
 	//private Stage primaryStage;
 	private static Main main;
 	private DBManager manager;
-	private Boolean isLoginSuccess = false;
-	private static final List<Calendar> attemp = new ArrayList<Calendar>();
+	private static Boolean isLoginSuccess = false;
 	
 	public final String DIRECTORY_PATH = getClass()
 			.getResource("../../../")
@@ -42,6 +39,8 @@ public class Main extends Application implements LoginListener{
 			while(!isLoginSuccess){
 				LoginWindow.display(manager);
 			}
+			
+			PrimaryWindow.display(primaryStage);
 						
 		}catch(Exception e){
 			e.printStackTrace();
@@ -51,9 +50,7 @@ public class Main extends Application implements LoginListener{
 	
 	@Override
 	public void controllerExited(LoginEvent event) {
-		
-		attemp.add(Calendar.getInstance());
-		
+		isLoginSuccess = event.getIsSuccess();
 	}
 	
 	//Initialize database connection
