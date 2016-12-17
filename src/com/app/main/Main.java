@@ -1,35 +1,31 @@
 package com.app.main;
 
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.net.URL;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.List;
 import java.util.Scanner;
 
-import com.app.controller.ConfigController;
-import com.app.controller.LoginController;
 import com.app.database.DBLoginManager;
 import com.app.database.DBManager;
 import com.app.database.MySQLConnection;
-import com.app.event.ControllerEvent;
 import com.app.event.LoginEvent;
 import com.app.listener.LoginListener;
-import com.app.util.Initializer;
+import com.app.util.Instruction;
+import com.app.window.ConfigWindow;
+import com.app.window.LoginWindow;
 
 import javafx.application.Application;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 public class Main extends Application implements LoginListener{
 	
-	private Stage loginStage;
-	private Stage primaryStage;
+	//private Stage primaryStage;
 	private static Main main;
 	private DBManager manager;
 	private Boolean isLoginSuccess = false;
+	private List<Calendar> attemp;
 	
-	private final String DIRECTORY_PATH = getClass()
+	public final String DIRECTORY_PATH = getClass()
 			.getResource("../../../")
 			.toString()
 			.replaceAll("/bin", "");
@@ -37,13 +33,16 @@ public class Main extends Application implements LoginListener{
 	@Override
 	public void start(Stage primaryStage){
 		try{
+			attemp = new ArrayList<Calendar>();
+
 			while(!initilizeDatabaseConn()){
-				displayConfig();
+				ConfigWindow.display(manager);
 			}
 			
-			displayLogin();
-			 
-			
+			while(!isLoginSuccess){
+				LoginWindow.display(manager);
+			}
+						
 		}catch(Exception e){
 			e.printStackTrace();
 		}
@@ -53,40 +52,14 @@ public class Main extends Application implements LoginListener{
 	@Override
 	public void controllerExited(LoginEvent event) {
 		
-		System.out.println(event.getIsSuccess());
+		attemp.add(Calendar.getInstance());
 		
 	}
 	
-	//Display login window
-	public void displayLogin() throws IOException{
-		loginStage = new Stage();
-		loginStage.setTitle("Login");
-		
-		Parent root = (Parent) FXMLLoader.load(new URL(this.DIRECTORY_PATH + "/imp/fxml/login.fxml"));
-		Scene scene = new Scene(root, 520 , 380);
-		scene.getStylesheets().add(this.DIRECTORY_PATH + "/imp/css/login.css");
-		
-		ControllerEvent event = new ControllerEvent();
-		event.setManager(manager);
-		event.setClazz(LoginController.getInstance().getClass().getCanonicalName());
-		
-		Initializer.addControllerListener(LoginController.getInstance());
-		Initializer.callControllerListener(event);
-		
-		loginStage.setScene(scene);
-		loginStage.showAndWait();
-	
-	}
-	
-	//Display main window
-	public void displayMain(){
-		
-	}
-
 	//Initialize database connection
 	public Boolean initilizeDatabaseConn(){
 		try{
-			Scanner config = getConfig();
+			Scanner config = Instruction.getConfig();
 			Boolean flag = false;
 			manager = new DBLoginManager();
 			
@@ -109,41 +82,6 @@ public class Main extends Application implements LoginListener{
 		}catch(Exception e){
 			e.printStackTrace();
 			return false;
-		}
-	}
-	
-	//Display Config
-	public void displayConfig() throws IOException{
-		Stage configStage = new Stage();
-		configStage.setTitle("Database Configuration");
-		configStage.setResizable(false);
-		configStage.setMaximized(false);
-		
-		Parent root = FXMLLoader.load(new URL(this.DIRECTORY_PATH + "/imp/fxml/config.fxml"));
-		
-		Scene scene = new Scene(root, 350.0 , 320.0);
-		scene.getStylesheets().add(this.DIRECTORY_PATH + "/imp/css/config.css");
-		
-		ControllerEvent event = new ControllerEvent();
-		event.setManager(manager);
-		event.setClazz(ConfigController.getInstance().getClass().getCanonicalName());
-		
-		Initializer.addControllerListener(ConfigController.getInstance());
-		Initializer.callControllerListener(event);
-		
-		configStage.setScene(scene);
-		configStage.showAndWait();
-		
-	}
-	
-	//Database config
-	public Scanner getConfig(){
-		try{
-			Scanner scanner = new Scanner(new FileInputStream("imp/other/config/config.txt"));
-			return (scanner.hasNext() ? scanner : null);
-		}catch(Exception e){
-			e.printStackTrace();
-			return null;
 		}
 	}
 	

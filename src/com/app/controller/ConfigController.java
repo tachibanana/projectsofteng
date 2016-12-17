@@ -1,11 +1,10 @@
 package com.app.controller;
 
-import java.io.FileOutputStream;
-
 import com.app.database.DBManager;
 import com.app.database.MySQLConnection;
 import com.app.event.ControllerEvent;
 import com.app.listener.ControllerListener;
+import com.app.util.Instruction;
 
 import javafx.animation.FadeTransition;
 import javafx.event.ActionEvent;
@@ -77,19 +76,12 @@ public class ConfigController implements ControllerListener{
 	
 	@FXML
 	public void handleSaveOnAction(ActionEvent event) throws Exception{
-		StringBuilder str = new StringBuilder();
-		str.append("jdbc:mysql://" + hostField.getText() + ":" + portField.getText() + "/\n");
-		str.append(catalogField.getText() + "\n");
-		str.append(userField.getText() + "\n");
-		str.append(passwordField.getText() + "\n");
-		str.append("com.mysql.jdbc.Driver\n");
-		
-		FileOutputStream writer = new FileOutputStream("imp/other/config/config.txt");
-		writer.write(str.toString().getBytes());
-		
-		if(writer != null){
-			writer.close();
-		}
+		Instruction.setConfig(
+				hostField.getText(), 
+				portField.getText(), 
+				catalogField.getText(), 
+				userField.getText(), 
+				passwordField.getText());
 		
 		((Stage) ((Node)event.getSource()).getScene().getWindow()).close();
 		

@@ -15,9 +15,9 @@
    <children>
       <VBox alignment="TOP_CENTER" minHeight="250.0" minWidth="300.0" prefHeight="370.0" prefWidth="514.0" style="-fx-background-color: #ecf0f1;">
          <children>
-            <VBox alignment="CENTER" prefHeight="31.0" prefWidth="522.0" style="-fx-background-color: #f1c40f;">
+            <VBox fx:id="messagePanel" alignment="CENTER" prefHeight="31.0" prefWidth="522.0" style="-fx-background-color: #f1c40f;">
                <children>
-                  <Label alignment="CENTER" prefHeight="27.0" prefWidth="512.0" text="Software Engineer Project" textFill="WHITE">
+                  <Label fx:id="messageLabel" alignment="CENTER" prefHeight="27.0" prefWidth="512.0" text="Software Engineer Project" textFill="WHITE">
                      <font>
                         <Font size="14.0" />
                      </font>
