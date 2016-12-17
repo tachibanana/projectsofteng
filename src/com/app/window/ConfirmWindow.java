@@ -55,7 +55,7 @@ public class ConfirmWindow {
 			buttonContainer.getChildren().addAll(buttonYes,buttonNo);
 			box.getChildren().addAll(label , buttonContainer);
 			
-			Scene scene = new Scene(box , 300 , 120);
+			Scene scene = new Scene(box , 300 , 100);
 			scene.getStylesheets().add(Main.getInstance().DIRECTORY_PATH + "/imp/css/confirm_window.css");
 			stage.setScene(scene);
 			stage.showAndWait();

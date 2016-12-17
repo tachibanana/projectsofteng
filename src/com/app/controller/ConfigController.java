@@ -91,7 +91,8 @@ public class ConfigController implements ControllerListener{
 	public void controllerLoad(ControllerEvent event) {
 		
 		if(event.getClazz().trim().equals(getClass().getCanonicalName())){
-			manager = event.getManager();	
+			manager = event.getManager();
+			
 		}
 	}
 	

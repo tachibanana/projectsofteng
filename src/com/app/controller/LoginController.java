@@ -2,6 +2,7 @@ package com.app.controller;
 
 import java.io.FileInputStream;
 import java.net.URL;
+import java.util.Calendar;
 import java.util.ResourceBundle;
 
 import com.app.database.DBLoginManager;
@@ -9,8 +10,10 @@ import com.app.event.ControllerEvent;
 import com.app.event.LoginEvent;
 import com.app.listener.ControllerListener;
 import com.app.main.Main;
+import com.app.model.Attempt;
 import com.app.model.User;
 import com.app.util.Initializer;
+import com.app.util.Instruction;
 
 import javafx.animation.FadeTransition;
 import javafx.event.ActionEvent;
@@ -46,6 +49,7 @@ public class LoginController implements Initializable, ControllerListener{
 	
 	private static DBLoginManager manager;
 	private static LoginController loginController;
+	private static Attempt attempt;
 	
 	@FXML
 	public synchronized void handleOnAction(ActionEvent event) throws Exception{
@@ -55,34 +59,47 @@ public class LoginController implements Initializable, ControllerListener{
 		User user = null;
 		Boolean isSuccess = false;
 
-		if((user = manager.getUserWithUsernameAndPassword(username, password)) != null){
-			isSuccess = true;
-			messagePanel.setStyle("-fx-background-color:#2ecc71");
-			messageLabel.setText("welcome back " + user.getFirstName() + " " + user.getLastName() + "!");
-			addFadeAnimation(messagePanel);
-			
-			LoginEvent loginEvent = new LoginEvent();
-			loginEvent.setIsSuccess(isSuccess);
-			loginEvent.setUser(user);
-			
-			((Stage) ((Node)event.getSource()).getScene().getWindow()).close();
-			
-			Initializer.addLoginListener(Main.getInstance());
-			Initializer.callLoginListener(loginEvent);
+		attempt.setNumberOfAttempt(attempt.getNumberOfAttempt() + 1);
+		attempt.setLastAttempt(Calendar.getInstance());
+
+		if(attempt.getNumberOfAttempt() < 3){
+			if((user = manager.getUserWithUsernameAndPassword(username, password)) != null){
+				isSuccess = true;
+				messagePanel.setStyle("-fx-background-color:#2ecc71");
+				messageLabel.setText("welcome back " + user.getFirstName() + " " + user.getLastName() + "!");
+				addFadeAnimation(messagePanel);
+				
+				LoginEvent loginEvent = new LoginEvent();
+				loginEvent.setIsSuccess(isSuccess);
+				loginEvent.setUser(user);
+				
+				Initializer.addLoginListener(Main.getInstance());
+				Initializer.callLoginListener(loginEvent);
+				
+				((Stage) ((Node)event.getSource()).getScene().getWindow()).close();	
+			}else{
+				messagePanel.setStyle("-fx-background-color:#e74c3c");
+				messageLabel.setText("Incorrect username or password.");
+				addFadeAnimation(messagePanel);
+				Instruction.setLoginAttempt(attempt);	
+			}
 		}else{
-			messagePanel.setStyle("-fx-background-color:#e74c3c");
-			messageLabel.setText("Incorrect username or password.");
+			usernameField.setDisable(true);
+			passwordField.setDisable(true);
+			buttonLogin.setDisable(true);
+			
+			messagePanel.setStyle("-fx-background-color:#d35400");
+			messageLabel.setText("Too many failed login attempts. Please wait and try again.");
 			addFadeAnimation(messagePanel);
+			Instruction.setLoginAttempt(attempt);
 		}
-		
-		
-	
 	}
 
 	@Override
 	public void controllerLoad(ControllerEvent event) {
 		if(event.getClazz().trim().equals(getClass().getCanonicalName().trim())){
 			manager = (DBLoginManager) event.getManager();
+			attempt = Instruction.getLoginAttempt();
 		}
 		
 	}
@@ -99,10 +116,24 @@ public class LoginController implements Initializable, ControllerListener{
 		try{
 			Image image = new Image(new FileInputStream("imp/img/icon/spin.gif"));
 			imageView.setImage(image);
+			attempt = Instruction.getLoginAttempt();
 			
+			if(attempt.getNumberOfAttempt() >= 3){
+				usernameField.setDisable(true);
+				passwordField.setDisable(true);
+				buttonLogin.setDisable(true);
+				
+				messagePanel.setStyle("-fx-background-color:#d35400");
+				messageLabel.setText("Too many failed login attempts. Please wait and try again.");
+				addFadeAnimation(messagePanel);
+			}
 		}catch(Exception e){
 			e.printStackTrace();
 		}
+	}
+	
+	public void login(){
+		
 	}
 
 	public static LoginController getInstance(){

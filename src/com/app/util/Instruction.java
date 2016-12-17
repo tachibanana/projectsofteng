@@ -3,7 +3,10 @@ package com.app.util;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.Calendar;
 import java.util.Scanner;
+
+import com.app.model.Attempt;
 
 public class Instruction {
 
@@ -28,5 +31,58 @@ public class Instruction {
 		FileOutputStream writer = new FileOutputStream("imp/other/config/config.txt");
 		writer.write(str.toString().getBytes());
 		writer.close();
+	}
+	
+	public static void setLoginAttempt(Attempt attempt){
+		try{
+			FileOutputStream writer = new FileOutputStream("imp/other/config/logs.txt");
+			
+			if(attempt != null){
+				if(attempt.getLastAttempt() != null){
+					String string = attempt.getNumberOfAttempt() + "\n";
+					string += Formatter.convertCalendarToString(attempt.getLastAttempt());
+					writer.write(string.getBytes());
+				}
+			}else
+				writer.write("".getBytes());
+			writer.close();
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		
+	}
+	
+	public static Boolean isAttepExpired(Calendar calendar){
+		try{
+			int interval = Formatter.getIntervalOnMinute(calendar, Calendar.getInstance());
+			return (interval <= 60 ? false : true );
+		}catch(Exception e){
+			e.printStackTrace();
+			return true;
+		}
+		
+	}
+	
+	public static Attempt getLoginAttempt(){
+		try{
+			Attempt attempt =  new Attempt(0 , null);
+			Scanner scanner = new Scanner(new FileInputStream("imp/other/config/logs.txt"));
+			if(scanner.hasNext()){
+				int numberOfAttempt = Integer.parseInt(scanner.nextLine().trim());
+				Calendar lastAttempt = Formatter.convertStringToCalendar(scanner.nextLine().trim());
+				if(lastAttempt != null){
+					if(!isAttepExpired(lastAttempt))
+						attempt = new Attempt(numberOfAttempt , lastAttempt);
+					else
+						setLoginAttempt(null);
+					
+				}
+				scanner.close();
+			}
+			return attempt;
+		}catch(Exception e){
+			//e.printStackTrace();
+			return new Attempt(0 , Calendar.getInstance());
+		}
 	}
 }

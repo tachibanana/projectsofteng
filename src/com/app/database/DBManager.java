@@ -9,21 +9,21 @@ public class DBManager {
 	private  Connection conn;
 	private static DBManager manager;
 	
-	public static DBManager getInstance(){
+	public static final DBManager getInstance(){
 		if(manager == null)
 			manager = new DBManager();
 		return manager;
 		
 	}
-	public void setDatabaseConnection(DatabaseConnection connection){
+	public final void setDatabaseConnection(DatabaseConnection connection){
 		dbconn = connection;
 	}
 	
-	public void openConnection(){
+	public final void openConnection(){
 		conn = dbconn.getConnection();
 	}
 	
-	public void closeConnection(){
+	public final void closeConnection(){
 		try {
 			conn.close();
 		} catch (SQLException e) {
@@ -31,7 +31,7 @@ public class DBManager {
 		}
 	}
 	
-	public Connection getConnection(){
+	public final Connection getConnection(){
 		return conn;
 	}
 

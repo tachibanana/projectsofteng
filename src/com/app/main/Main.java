@@ -23,7 +23,7 @@ public class Main extends Application implements LoginListener{
 	private static Main main;
 	private DBManager manager;
 	private Boolean isLoginSuccess = false;
-	private List<Calendar> attemp;
+	private static final List<Calendar> attemp = new ArrayList<Calendar>();
 	
 	public final String DIRECTORY_PATH = getClass()
 			.getResource("../../../")
@@ -33,7 +33,7 @@ public class Main extends Application implements LoginListener{
 	@Override
 	public void start(Stage primaryStage){
 		try{
-			attemp = new ArrayList<Calendar>();
+			
 
 			while(!initilizeDatabaseConn()){
 				ConfigWindow.display(manager);
@@ -80,7 +80,7 @@ public class Main extends Application implements LoginListener{
 			
 			return flag;
 		}catch(Exception e){
-			e.printStackTrace();
+			//e.printStackTrace();
 			return false;
 		}
 	}
