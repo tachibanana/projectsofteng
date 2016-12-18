@@ -5,6 +5,7 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.FlowPane?>
 <?import javafx.scene.layout.StackPane?>
@@ -13,38 +14,51 @@
 
 <FlowPane alignment="CENTER" columnHalignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #bdc3c7;" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.app.controller.LoginController">
    <children>
-      <VBox alignment="TOP_CENTER" minHeight="250.0" minWidth="300.0" prefHeight="370.0" prefWidth="514.0" style="-fx-background-color: #ecf0f1;">
+      <StackPane prefHeight="370.0" prefWidth="514.0">
          <children>
-            <VBox fx:id="messagePanel" alignment="CENTER" prefHeight="31.0" prefWidth="522.0" style="-fx-background-color: #f1c40f;">
+            <VBox alignment="TOP_CENTER" minHeight="250.0" minWidth="300.0" prefHeight="370.0" prefWidth="514.0" style="-fx-background-color: #ecf0f1;">
                <children>
-                  <Label fx:id="messageLabel" alignment="CENTER" prefHeight="27.0" prefWidth="512.0" text="Software Engineer Project" textFill="WHITE">
-                     <font>
-                        <Font size="14.0" />
-                     </font>
-                  </Label>
+                  <VBox fx:id="messagePanel" alignment="CENTER" prefHeight="31.0" prefWidth="522.0" style="-fx-background-color: #f1c40f;">
+                     <children>
+                        <Label fx:id="messageLabel" alignment="CENTER" prefHeight="27.0" prefWidth="512.0" text="Software Engineer Project" textFill="WHITE">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </VBox>
+                  <VBox prefHeight="108.0" prefWidth="514.0" />
+                  <StackPane prefHeight="49.0" prefWidth="522.0">
+                     <children>
+                        <Label fx:id="welcomeLabel" alignment="CENTER" prefHeight="43.0" prefWidth="241.0" text="Welcome to CCS Registration" textAlignment="CENTER">
+                           <font>
+                              <Font size="16.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </StackPane>
+                  <VBox alignment="TOP_CENTER" prefHeight="154.0" prefWidth="514.0" spacing="10.0">
+                     <children>
+                        <TextField fx:id="usernameField" onKeyReleased="#onKeyReleased" prefHeight="30.0" prefWidth="443.0" promptText="Username" />
+                        <PasswordField fx:id="passwordField" onAction="#handleOnAction" onKeyReleased="#onKeyReleased" prefHeight="30.0" prefWidth="262.0" promptText="Password" />
+                        <Button fx:id="buttonLogin" mnemonicParsing="false" onAction="#handleOnAction" prefHeight="36.0" prefWidth="97.0" text="Login" />
+                     </children>
+                     <padding>
+                        <Insets left="130.0" right="130.0" />
+                     </padding>
+                  </VBox>
                </children>
             </VBox>
-            <VBox prefHeight="108.0" prefWidth="514.0" />
-            <StackPane prefHeight="49.0" prefWidth="522.0">
+            <VBox fx:id="loadingPane" alignment="CENTER" opacity="0.5" prefHeight="200.0" prefWidth="0.0" style="-fx-background-color: white;" visible="false">
                <children>
-                  <Label fx:id="welcomeLabel" alignment="CENTER" prefHeight="43.0" prefWidth="241.0" text="Welcome to CCS Registration" textAlignment="CENTER">
-                     <font>
-                        <Font size="16.0" />
-                     </font>
-                  </Label>
-                  <ImageView fx:id="imageView" fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true" visible="false" />
+                  <ImageView fx:id="imageView" fitHeight="310.0" fitWidth="305.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../../../Desktop/lloading.gif" />
+                     </image>
+                  </ImageView>
                </children>
-            </StackPane>
-            <VBox alignment="TOP_CENTER" prefHeight="154.0" prefWidth="514.0" spacing="10.0">
-               <children>
-                  <TextField fx:id="usernameField" onKeyReleased="#onKeyReleased" prefHeight="30.0" prefWidth="443.0" promptText="Username" />
-                  <PasswordField fx:id="passwordField" onAction="#handleOnAction" onKeyReleased="#onKeyReleased" prefHeight="30.0" prefWidth="262.0" promptText="Password" />
-                  <Button fx:id="buttonLogin" mnemonicParsing="false" onAction="#handleOnAction" prefHeight="36.0" prefWidth="97.0" text="Login" />
-               </children>
-               <padding>
-                  <Insets left="130.0" right="130.0" />
-               </padding>
             </VBox>
-         </children></VBox>
+         </children>
+      </StackPane>
    </children>
 </FlowPane>
