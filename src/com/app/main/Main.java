@@ -2,11 +2,11 @@ package com.app.main;
 
 import java.util.Scanner;
 
-import com.app.database.DBLoginManager;
 import com.app.database.DBManager;
 import com.app.database.MySQLConnection;
 import com.app.event.LoginEvent;
 import com.app.listener.LoginListener;
+import com.app.model.User;
 import com.app.util.Instruction;
 import com.app.window.ConfigWindow;
 import com.app.window.LoginWindow;
@@ -21,6 +21,7 @@ public class Main extends Application implements LoginListener{
 	private static Main main;
 	private DBManager manager;
 	private static Boolean isLoginSuccess = false;
+	private static volatile User user;
 	
 	public final String DIRECTORY_PATH = getClass()
 			.getResource("../../../")
@@ -31,7 +32,6 @@ public class Main extends Application implements LoginListener{
 	public void start(Stage primaryStage){
 		try{
 			
-
 			while(!initilizeDatabaseConn()){
 				ConfigWindow.display(manager);
 			}
@@ -39,8 +39,8 @@ public class Main extends Application implements LoginListener{
 			while(!isLoginSuccess){
 				LoginWindow.display(manager);
 			}
-			
-			PrimaryWindow.display(primaryStage);
+
+			PrimaryWindow.display(primaryStage, manager, user);
 						
 		}catch(Exception e){
 			e.printStackTrace();
@@ -51,6 +51,7 @@ public class Main extends Application implements LoginListener{
 	@Override
 	public void controllerExited(LoginEvent event) {
 		isLoginSuccess = event.getIsSuccess();
+		user = event.getUser();
 	}
 	
 	//Initialize database connection
@@ -58,7 +59,7 @@ public class Main extends Application implements LoginListener{
 		try{
 			Scanner config = Instruction.getConfig();
 			Boolean flag = false;
-			manager = new DBLoginManager();
+			manager = new DBManager();
 			
 			if(config != null){
 				

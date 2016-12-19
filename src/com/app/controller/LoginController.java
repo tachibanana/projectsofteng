@@ -5,7 +5,7 @@ import java.net.URL;
 import java.util.Calendar;
 import java.util.ResourceBundle;
 
-import com.app.database.DBLoginManager;
+import com.app.database.DBManager;
 import com.app.event.ControllerEvent;
 import com.app.event.LoginEvent;
 import com.app.listener.ControllerListener;
@@ -50,8 +50,7 @@ public class LoginController implements Initializable, ControllerListener{
 	private VBox messagePanel;
 	@FXML
 	private Label messageLabel;
-	
-	private static DBLoginManager manager;
+	private static DBManager manager;
 	private static LoginController loginController;
 	private static Attempt attempt;
 	private static volatile Stage stage;
@@ -121,7 +120,7 @@ public class LoginController implements Initializable, ControllerListener{
 
 	
 	@FXML
-	public void onKeyReleased(KeyEvent event){
+	public void handleKeyEvent(KeyEvent event){
 		if(!usernameField.getText().trim().equals("") && !passwordField.getText().trim().equals(""))
 			buttonLogin.setDisable(false);
 		else
@@ -131,7 +130,7 @@ public class LoginController implements Initializable, ControllerListener{
 	@Override
 	public void controllerLoad(ControllerEvent event) {
 		if(event.getClazz().trim().equals(getClass().getCanonicalName().trim())){
-			manager = (DBLoginManager) event.getManager();
+			manager =  event.getManager();
 			attempt = Instruction.getLoginAttempt();
 		}
 		
@@ -176,10 +175,11 @@ public class LoginController implements Initializable, ControllerListener{
 					passwordField.setDisable(false);
 					buttonLogin.setDisable(false);
 					
-					if(flag == 0)
+					if(flag == 0){
+						//manager.closeConnection();
 						stage.close();
 					
-					else if(flag == 1){
+					}else if(flag == 1){
 						messagePanel.setStyle("-fx-background-color:#e74c3c");
 						messageLabel.setText("Incorrect username or password.");
 						addFadeAnimation(messagePanel);

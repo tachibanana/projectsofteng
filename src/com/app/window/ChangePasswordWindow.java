@@ -21,7 +21,7 @@ public class ChangePasswordWindow {
 		
 		Parent root = FXMLLoader.load(new URL(Main.getInstance().DIRECTORY_PATH + "/imp/fxml/change_password.fxml"));
 		
-		Scene scene = new Scene(root ,443.0 , 300.0);
+		Scene scene = new Scene(root ,443.0 , 250.0);
 		scene.getStylesheets().add(Main.getInstance().DIRECTORY_PATH + "/imp/css/change_password.css");
 		
 		stage.setScene(scene);

@@ -65,10 +65,10 @@ public class Instruction {
 	
 	public static Attempt getLoginAttempt(){
 		try{
-			Attempt attempt =  new Attempt(0 , null);
+			Attempt attempt = new Attempt(0 , null);
 			Scanner scanner = new Scanner(new FileInputStream("imp/other/config/logs.txt"));
 			if(scanner.hasNext()){
-				int numberOfAttempt = Integer.parseInt(scanner.nextLine().trim());
+				int numberOfAttempt = (scanner.nextLine().trim().matches("[\\d]+")? Integer.parseInt(scanner.nextLine().trim()) : 0);
 				Calendar lastAttempt = Formatter.convertStringToCalendar(scanner.nextLine().trim());
 				if(lastAttempt != null){
 					if(!isAttepExpired(lastAttempt))

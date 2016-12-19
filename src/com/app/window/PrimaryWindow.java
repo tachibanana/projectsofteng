@@ -3,7 +3,12 @@ package com.app.window;
 import java.io.IOException;
 import java.net.URL;
 
+import com.app.controller.PrimaryController;
+import com.app.database.DBManager;
+import com.app.event.ControllerEvent;
 import com.app.main.Main;
+import com.app.model.User;
+import com.app.util.Initializer;
 
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -14,7 +19,16 @@ public class PrimaryWindow {
 	
 	private static Stage stage;
 	
-	public static void display(Stage stage) throws IOException{
+	public static void display(Stage stage,DBManager manager, User user) throws IOException{
+		
+		ControllerEvent event = new ControllerEvent();
+		event.setManager(manager);
+		event.setClazz(PrimaryController.getInstance().getClass().getCanonicalName());
+		event.setAttribute(user);
+		
+		Initializer.addControllerListener(PrimaryController.getInstance());
+		Initializer.callControllerListener(event);
+		
 		PrimaryWindow.stage = stage;
 		PrimaryWindow.stage.setMaximized(true);
 		PrimaryWindow.stage.setOnCloseRequest(e ->{

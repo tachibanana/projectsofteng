@@ -5,7 +5,6 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.TextField?>
-<?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.FlowPane?>
 <?import javafx.scene.layout.StackPane?>
@@ -39,8 +38,8 @@
                   </StackPane>
                   <VBox alignment="TOP_CENTER" prefHeight="154.0" prefWidth="514.0" spacing="10.0">
                      <children>
-                        <TextField fx:id="usernameField" onKeyReleased="#onKeyReleased" prefHeight="30.0" prefWidth="443.0" promptText="Username" />
-                        <PasswordField fx:id="passwordField" onAction="#handleOnAction" onKeyReleased="#onKeyReleased" prefHeight="30.0" prefWidth="262.0" promptText="Password" />
+                        <TextField fx:id="usernameField" onKeyPressed="#handleKeyEvent" onKeyReleased="#handleKeyEvent" prefHeight="30.0" prefWidth="443.0" promptText="Username" />
+                        <PasswordField fx:id="passwordField" onAction="#handleOnAction" onKeyPressed="#handleKeyEvent" onKeyReleased="#handleKeyEvent" prefHeight="30.0" prefWidth="262.0" promptText="Password" />
                         <Button fx:id="buttonLogin" mnemonicParsing="false" onAction="#handleOnAction" prefHeight="36.0" prefWidth="97.0" text="Login" />
                      </children>
                      <padding>
@@ -51,11 +50,7 @@
             </VBox>
             <VBox fx:id="loadingPane" alignment="CENTER" opacity="0.5" prefHeight="200.0" prefWidth="0.0" style="-fx-background-color: white;" visible="false">
                <children>
-                  <ImageView fx:id="imageView" fitHeight="310.0" fitWidth="305.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../../../../Desktop/lloading.gif" />
-                     </image>
-                  </ImageView>
+                  <ImageView fx:id="imageView" fitHeight="310.0" fitWidth="305.0" pickOnBounds="true" preserveRatio="true" />
                </children>
             </VBox>
          </children>

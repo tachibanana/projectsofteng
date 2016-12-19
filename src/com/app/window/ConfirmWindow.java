@@ -33,7 +33,7 @@ public class ConfirmWindow {
 			VBox header = new VBox();
 			header.setPrefHeight(5);
 			header.setMinSize(0, 5);
-			header.setStyle("-fx-background-color: #1abc9c");
+			header.setStyle("-fx-background-color: #ecf0f1");
 			
 			Label label = new Label(message);
 			label.setTextAlignment(TextAlignment.CENTER);
