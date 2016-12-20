@@ -1,5 +1,6 @@
 package com.app.controller;
 
+import java.io.FileInputStream;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -9,6 +10,7 @@ import com.app.event.FocusEvent;
 import com.app.listener.ControllerListener;
 import com.app.model.User;
 
+import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
@@ -18,11 +20,13 @@ import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
-public class ChangePasswordController implements Initializable, ControllerListener{
+public class ChangePasswordController implements Initializable, ControllerListener, Runnable{
 	
 	@FXML
 	private PasswordField oldPasswordField;
@@ -38,29 +42,37 @@ public class ChangePasswordController implements Initializable, ControllerListen
 	private VBox messageBox;
 	@FXML
 	private Label messageLabel;
+	@FXML
+	private VBox loadingBox;
+	@FXML
+	private ImageView loadingImage;
 	private static User user;
 	private static DBManager manager;
 	private static ChangePasswordController changePasswordController;
+	private static Thread thread1;
 	
 	@FXML
 	public void updateOnAction(ActionEvent event){
-		if(user.getPassword().equals(oldPasswordField.getText().trim())){
-			if(newPasswordField.getText().trim().equals(confirmPasswordField.getText().trim())){
-				if(!oldPasswordField.getText().trim().equals(newPasswordField.getText().trim())){
-					messageBox.setStyle("-fx-background-color:#2ecc71");
-					messageLabel.setText("You have successfully change your password");
-				}else{
-					messageBox.setStyle("-fx-background-color:#e74c3c;");
-					messageLabel.setText("You cannot reuse your old password.");
-				}
-			}
-		}else{
-			messageBox.setStyle("-fx-background-color:#e74c3c");
-			messageLabel.setText("Incorrect password!");
-			oldPasswordField.setStyle("-fx-border-color: #e74c3c;-fx-border-width: 2;");
-		}	
+		thread1 = new Thread(()->{
+			Platform.runLater(()->{
+				loadingBox.setVisible(true);
+				loadingImage.setVisible(true);
+				
+				oldPasswordField.setDisable(true);
+				newPasswordField.setDisable(true);
+				confirmPasswordField.setDisable(true);
+				buttonUpdate.setDisable(true);
+				
+				messageBox.setStyle("-fx-background-color:#34495e");
+				messageLabel.setText("Loading. . .");
+			});
+			
+		});
+		
+		Thread thread2 = new Thread(this);
+		thread1.start();
+		thread2.start();
 	}
-	
 	
 	@FXML
 	public void cancelOnAction(ActionEvent event){
@@ -95,7 +107,6 @@ public class ChangePasswordController implements Initializable, ControllerListen
 		
 		//confirm password
 		}else if(event.getSource().equals(confirmPasswordField)){
-			
 			if(confirmPasswordField.getText().trim().equals(newPasswordField.getText().trim())){
 				confirmPasswordField.setStyle("-fx-border-color: #2ecc71;-fx-border-width: 2;");
 				
@@ -107,10 +118,8 @@ public class ChangePasswordController implements Initializable, ControllerListen
 				
 				messageBox.setStyle("-fx-background-color:#e67e22;");
 				messageLabel.setText("The confirm password must match the new password entry.");
-
 			}
 		}
-		
 	}
 	
 	public void focusGained(FocusEvent event){
@@ -156,44 +165,99 @@ public class ChangePasswordController implements Initializable, ControllerListen
 
 	@Override
 	public void initialize(URL url, ResourceBundle bundle) {
-		buttonUpdate.setDisable(true);
-		
-		newPasswordField.focusedProperty().addListener(new ChangeListener<Boolean>(){
-			@Override
-			public void changed(ObservableValue<? extends Boolean> arg0, Boolean oldProperty, Boolean newProperty){
-				FocusEvent event = new FocusEvent();
-				event.setClazz("newPasswordField");
-				if(newProperty)
-					focusGained(event);
-				else
-					focusLost(event);	
-			}
-		});
-		
-		confirmPasswordField.focusedProperty().addListener(new ChangeListener<Boolean>(){
-			@Override
-			public void changed(ObservableValue<? extends Boolean> observable, Boolean oldProperty, Boolean newProperty){
-				FocusEvent event = new FocusEvent();
-				event.setClazz("confirmPasswordField");
-				if(newProperty)
-					focusGained(event);
-				else
-					focusLost(event);	
-			}
-		});
-		
-		oldPasswordField.focusedProperty().addListener(new ChangeListener<Boolean>(){
-			@Override
-			public void changed(ObservableValue<? extends Boolean> observable, Boolean oldProperty, Boolean newProperty) {
+		try{
+			buttonUpdate.setDisable(true);
+			
+			Image img = new Image(new FileInputStream("imp/img/icon/loading.gif"));
+			loadingBox.setVisible(false);
+			loadingImage.setVisible(false);
+			loadingImage.setImage(img);
+			
+			newPasswordField.focusedProperty().addListener(new ChangeListener<Boolean>(){
+				@Override
+				public void changed(ObservableValue<? extends Boolean> arg0, Boolean oldProperty, Boolean newProperty){
+					FocusEvent event = new FocusEvent();
+					event.setClazz("newPasswordField");
+					if(newProperty)
+						focusGained(event);
+					else
+						focusLost(event);	
+				}
+			});
+			
+			confirmPasswordField.focusedProperty().addListener(new ChangeListener<Boolean>(){
+				@Override
+				public void changed(ObservableValue<? extends Boolean> observable, Boolean oldProperty, Boolean newProperty){
+					FocusEvent event = new FocusEvent();
+					event.setClazz("confirmPasswordField");
+					if(newProperty)
+						focusGained(event);
+					else
+						focusLost(event);	
+				}
+			});
+			
+			oldPasswordField.focusedProperty().addListener((observable,oldProperty,newProperty)->{
 				FocusEvent event = new FocusEvent();
 				event.setClazz("oldPasswordField");
 				if(newProperty)
 					focusGained(event);
+			});
+		
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+	}
+	
+	@Override
+	public void run() {
+		
+		try {
+			thread1.join();
+			Thread.sleep(2000);
+		} catch (InterruptedException e) {
+			
+			e.printStackTrace();
+		}
+		
+		Platform.runLater(()->{
+			loadingBox.setVisible(false);
+			loadingImage.setVisible(false);
+			
+			if(user.getPassword().equals(oldPasswordField.getText().trim())){
+				if(newPasswordField.getText().trim().equals(confirmPasswordField.getText().trim())){
+					if(!oldPasswordField.getText().trim().equals(newPasswordField.getText().trim())){
+						manager.updateUserPasswordById(user.getUserId(), newPasswordField.getText().trim());
+						
+						messageBox.setStyle("-fx-background-color:#2ecc71");
+						messageLabel.setText("You have successfully change your password");
+						
+						oldPasswordField.setDisable(true);
+						newPasswordField.setDisable(true);
+						confirmPasswordField.setDisable(true);
+						buttonUpdate.setDisable(true);
+						buttonCancel.setText("Close");
+					}else{
+						messageBox.setStyle("-fx-background-color:#e74c3c;");
+						messageLabel.setText("You cannot reuse your old password.");
+						
+						oldPasswordField.setDisable(false);
+						newPasswordField.setDisable(false);
+						confirmPasswordField.setDisable(false);
+						buttonUpdate.setDisable(false);
+					}
+				}
+			}else{
+				messageBox.setStyle("-fx-background-color:#e74c3c");
+				messageLabel.setText("Incorrect password!");
+				oldPasswordField.setStyle("-fx-border-color: #e74c3c;-fx-border-width: 2;");
 				
+				oldPasswordField.setDisable(false);
+				newPasswordField.setDisable(false);
+				confirmPasswordField.setDisable(false);
+				buttonUpdate.setDisable(false);
 			}
 		});
-		
-		
 	}
 
 	@Override
@@ -207,4 +271,5 @@ public class ChangePasswordController implements Initializable, ControllerListen
 			changePasswordController = new ChangePasswordController();
 		return changePasswordController;
 	}
+	
 }
