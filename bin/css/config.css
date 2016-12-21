@@ -1,0 +1,26 @@
+
+#button_test{
+	-fx-background-color:#2ecc71;
+	-fx-text-fill: #ffffff;
+}
+
+#button_test:hover{
+	-fx-background-color:#27ae60;
+}
+
+#button_test:pressed{
+	-fx-background-color: gray;
+}
+
+#button_save{
+	-fx-background-color:#e67e22;
+	-fx-text-fill: #ffffff;
+}
+
+#button_save:hover{
+	-fx-background-color:#d35400;
+}
+
+#button_save:pressed{
+	-fx-background-color:gray;
+}

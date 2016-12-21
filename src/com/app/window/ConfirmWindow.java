@@ -1,6 +1,6 @@
 package com.app.window;
 
-import com.app.main.Main;
+import com.app.util.ResourceLoader;
 
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -61,7 +61,7 @@ public class ConfirmWindow {
 			box.getChildren().addAll(header, label , buttonContainer);
 			
 			Scene scene = new Scene(box , 300 , 80);
-			scene.getStylesheets().add(Main.getInstance().DIRECTORY_PATH + "/imp/css/confirm_window.css");
+			scene.getStylesheets().add(ResourceLoader.source("css/confirm_window.css").toString());
 			stage.setScene(scene);
 			stage.showAndWait();
 			

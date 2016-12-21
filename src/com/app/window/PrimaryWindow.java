@@ -1,14 +1,13 @@
 package com.app.window;
 
 import java.io.IOException;
-import java.net.URL;
 
 import com.app.controller.PrimaryController;
 import com.app.database.DBManager;
 import com.app.event.ControllerEvent;
-import com.app.main.Main;
 import com.app.model.User;
 import com.app.util.Initializer;
+import com.app.util.ResourceLoader;
 
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -37,7 +36,7 @@ public class PrimaryWindow {
 				PrimaryWindow.stage.close();
 		});
 		
-		Parent root = FXMLLoader.load(new URL(Main.getInstance().DIRECTORY_PATH + "/imp/fxml/primary.fxml"));
+		Parent root = FXMLLoader.load(ResourceLoader.source("fxml/primary.fxml"));
 		Scene scene = new Scene(root,800,600);
 		
 		PrimaryWindow.stage.setScene(scene);

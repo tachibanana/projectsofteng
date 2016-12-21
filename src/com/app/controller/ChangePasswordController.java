@@ -9,6 +9,7 @@ import com.app.event.ControllerEvent;
 import com.app.event.FocusEvent;
 import com.app.listener.ControllerListener;
 import com.app.model.User;
+import com.app.util.ResourceLoader;
 
 import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
@@ -168,7 +169,7 @@ public class ChangePasswordController implements Initializable, ControllerListen
 		try{
 			buttonUpdate.setDisable(true);
 			
-			Image img = new Image(new FileInputStream("imp/img/icon/loading.gif"));
+			Image img = new Image(new FileInputStream(ResourceLoader.dir() +"/imp/img/icon/loading.gif"));
 			loadingBox.setVisible(false);
 			loadingImage.setVisible(false);
 			loadingImage.setImage(img);

@@ -1,13 +1,12 @@
 package com.app.window;
 
 import java.io.IOException;
-import java.net.URL;
 
 import com.app.controller.ConfigController;
 import com.app.database.DBManager;
 import com.app.event.ControllerEvent;
-import com.app.main.Main;
 import com.app.util.Initializer;
+import com.app.util.ResourceLoader;
 
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -23,10 +22,10 @@ public class ConfigWindow {
 		configStage.setMaximized(false);
 		configStage.setOnCloseRequest(e -> System.exit(0));
 		
-		Parent root = FXMLLoader.load(new URL(Main.getInstance().DIRECTORY_PATH + "/imp/fxml/config.fxml"));
+		Parent root = FXMLLoader.load(ResourceLoader.source("fxml/config.fxml"));
 		
 		Scene scene = new Scene(root, 350.0 , 320.0);
-		scene.getStylesheets().add(Main.getInstance().DIRECTORY_PATH + "/imp/css/config.css");
+		scene.getStylesheets().add(ResourceLoader.source("css/config.css").toString());
 		
 		ControllerEvent event = new ControllerEvent();
 		event.setManager(manager);

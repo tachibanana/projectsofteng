@@ -17,16 +17,10 @@ import javafx.stage.Stage;
 
 public class Main extends Application implements LoginListener{
 	
-	//private Stage primaryStage;
 	private static Main main;
 	private DBManager manager;
 	private static Boolean isLoginSuccess = false;
 	private static volatile User user;
-	
-	public final String DIRECTORY_PATH = getClass()
-			.getResource("../../../")
-			.toString()
-			.replaceAll("/bin", "");
 
 	@Override
 	public void start(Stage primaryStage){

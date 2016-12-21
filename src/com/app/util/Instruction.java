@@ -12,7 +12,8 @@ public class Instruction {
 
 	public static Scanner getConfig(){
 		try{
-			Scanner scanner = new Scanner(new FileInputStream("imp/other/config/config.txt"));
+			Scanner scanner = new Scanner(
+					new FileInputStream(ResourceLoader.dir() + "/imp/other/config/config.txt"));
 			return (scanner.hasNext() ? scanner : null);
 		}catch(Exception e){
 			e.printStackTrace();
@@ -28,14 +29,15 @@ public class Instruction {
 		str.append(password + "\n");
 		str.append("com.mysql.jdbc.Driver\n");
 		
-		FileOutputStream writer = new FileOutputStream("imp/other/config/config.txt");
+		FileOutputStream writer = new FileOutputStream(ResourceLoader.dir() + "/imp/other/config/config.txt");
 		writer.write(str.toString().getBytes());
 		writer.close();
 	}
 	
 	public static void setLoginAttempt(Attempt attempt){
 		try{
-			FileOutputStream writer = new FileOutputStream("imp/other/config/logs.txt");
+			
+			FileOutputStream writer = new FileOutputStream(ResourceLoader.dir() + "/imp/other/config/logs.txt");
 			
 			if(attempt != null){
 				if(attempt.getLastAttempt() != null){
@@ -66,9 +68,11 @@ public class Instruction {
 	public static Attempt getLoginAttempt(){
 		try{
 			Attempt attempt = new Attempt(0 , null);
-			Scanner scanner = new Scanner(new FileInputStream("imp/other/config/logs.txt"));
+			Scanner scanner = new Scanner(
+					new FileInputStream(ResourceLoader.dir() + "/imp/other/config/logs.txt"));
 			if(scanner.hasNext()){
-				int numberOfAttempt = (scanner.nextLine().trim().matches("[\\d]+")? Integer.parseInt(scanner.nextLine().trim()) : 0);
+				//int numberOfAttempt = (scanner.nextLine().trim().matches("[\\d]+")? Integer.parseInt(scanner.nextLine().trim()) : 0);
+				int numberOfAttempt = Integer.parseInt(scanner.nextLine().trim());
 				Calendar lastAttempt = Formatter.convertStringToCalendar(scanner.nextLine().trim());
 				if(lastAttempt != null){
 					if(!isAttepExpired(lastAttempt))
@@ -81,7 +85,7 @@ public class Instruction {
 			}
 			return attempt;
 		}catch(Exception e){
-			//e.printStackTrace();
+			e.printStackTrace();
 			return new Attempt(0 , Calendar.getInstance());
 		}
 	}

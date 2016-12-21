@@ -14,6 +14,7 @@ import com.app.model.Attempt;
 import com.app.model.User;
 import com.app.util.Initializer;
 import com.app.util.Instruction;
+import com.app.util.ResourceLoader;
 
 import javafx.animation.FadeTransition;
 import javafx.application.Platform;
@@ -60,8 +61,8 @@ public class LoginController implements Initializable, ControllerListener{
 		try{
 			loadingPane.setVisible(false);
 			imageView.setVisible(false);
-			
-			Image image = new Image(new FileInputStream("imp/img/icon/loading.gif"));
+		
+			Image image = new Image(new FileInputStream(ResourceLoader.dir() + "/imp/img/icon/loading.gif"));
 			imageView.setImage(image);
 			
 			buttonLogin.setDisable(true);

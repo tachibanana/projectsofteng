@@ -1,13 +1,12 @@
 package com.app.window;
 
 import java.io.IOException;
-import java.net.URL;
 
 import com.app.controller.LoginController;
 import com.app.database.DBManager;
 import com.app.event.ControllerEvent;
-import com.app.main.Main;
 import com.app.util.Initializer;
+import com.app.util.ResourceLoader;
 
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -27,9 +26,10 @@ public class LoginWindow {
 				System.exit(0);
 		});
 		
-		Parent root = (Parent) FXMLLoader.load(new URL(Main.getInstance().DIRECTORY_PATH + "/imp/fxml/login.fxml"));
+		
+		Parent root = (Parent) FXMLLoader.load(ResourceLoader.source("fxml/login.fxml"));
 		Scene scene = new Scene(root, 520 , 390);
-		scene.getStylesheets().add(Main.getInstance().DIRECTORY_PATH + "/imp/css/login.css");
+		scene.getStylesheets().add(ResourceLoader.source("css/login.css").toString());
 		
 		ControllerEvent event = new ControllerEvent();
 		event.setManager(manager);
