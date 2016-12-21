@@ -15,18 +15,19 @@ public class Logs {
 			Properties prop = new Properties();
 			prop.load(new FileInputStream(ResourceLoader.dir() + "/imp/other/config/logs.properties"));
 			
-			int numberOfAttemp = (prop.getProperty("number.attempt") != null ?
-					(prop.getProperty("number.attempt").matches("(//d)+")? 
-							(Integer.parseInt(prop.getProperty("number.attemp"))) : 0 ) :0);
-			Calendar lastLogin = Formatter
+			int numberOfAttempt = (prop.getProperty("number.attempt") != null ?
+					(prop.getProperty("number.attempt").matches("(\\d)+")? 
+							(Integer.parseInt(prop.getProperty("number.attempt"))) : 0 ) :0);
+			Calendar lastLogin = Parser
 					.convertStringToCalendar(
 							(prop.getProperty("last.login") != null ? prop.getProperty("last.login") : ""));
 			
-			if(numberOfAttemp != 0 || lastLogin != null){
+			if(numberOfAttempt != 0 || lastLogin != null){
 				if(!isAttemptExpired(lastLogin))
-					attempt = new Attempt(numberOfAttemp, lastLogin);
+					attempt = new Attempt(numberOfAttempt, lastLogin);
 			}
 			
+			System.out.println(numberOfAttempt);
 			return attempt;
 		}catch(Exception e){
 			e.printStackTrace();
@@ -38,7 +39,7 @@ public class Logs {
 		try{
 			Properties prop = new Properties();
 			prop.setProperty("number.attempt", String.valueOf(attempt.getNumberOfAttempt()));
-			prop.setProperty("last.login", Formatter.convertCalendarToString(attempt.getLastAttempt()));
+			prop.setProperty("last.login", Parser.convertCalendarToString(attempt.getLastAttempt()));
 			prop.store(new FileOutputStream(ResourceLoader.dir() + "/imp/other/config/logs.properties"), null);			
 			
 		}catch(Exception e){
@@ -49,7 +50,7 @@ public class Logs {
 	
 	public static Boolean isAttemptExpired(Calendar calendar){
 		try{
-			int interval = Formatter.getIntervalOnMinute(calendar, Calendar.getInstance());
+			int interval = Parser.getIntervalOnMinute(calendar, Calendar.getInstance());
 			return (interval <= 60 ? false : true );
 		}catch(Exception e){
 			e.printStackTrace();

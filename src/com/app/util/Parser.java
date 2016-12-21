@@ -3,7 +3,7 @@ package com.app.util;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
-public class Formatter {
+public class Parser {
 
 	public static String convertCalendarToString(Calendar calendar){
 		try{
