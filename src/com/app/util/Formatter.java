@@ -8,13 +8,15 @@ public class Formatter {
 	public static String convertCalendarToString(Calendar calendar){
 		try{
 			StringBuilder calendarOnString = new StringBuilder();
-			calendarOnString.append(calendar.get(Calendar.DAY_OF_MONTH) + "/");
-			calendarOnString.append((calendar.get(Calendar.MONTH) + 1) + "/");
-			calendarOnString.append(calendar.get(Calendar.YEAR) + " ");
-			calendarOnString.append(calendar.get(Calendar.HOUR_OF_DAY) +":");
-			calendarOnString.append(calendar.get(Calendar.MINUTE) + ":");
-			calendarOnString.append(calendar.get(Calendar.SECOND));
 			
+			if(calendar != null){
+				calendarOnString.append(calendar.get(Calendar.DAY_OF_MONTH) + "/");
+				calendarOnString.append((calendar.get(Calendar.MONTH) + 1) + "/");
+				calendarOnString.append(calendar.get(Calendar.YEAR) + " ");
+				calendarOnString.append(calendar.get(Calendar.HOUR_OF_DAY) +":");
+				calendarOnString.append(calendar.get(Calendar.MINUTE) + ":");
+				calendarOnString.append(calendar.get(Calendar.SECOND));
+			}
 			return calendarOnString.toString();
 		}catch(Exception e){
 			e.printStackTrace();

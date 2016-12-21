@@ -6,6 +6,7 @@ import java.sql.SQLException;
 
 public class MySQLConnection extends DBUserLibrary implements DatabaseConnection{
 
+	private static MySQLConnection connection;
 	public MySQLConnection(String url, String catalog, String user, String password, String className) {
 		super(url, catalog, user, password, className);
 	}
@@ -21,6 +22,17 @@ public class MySQLConnection extends DBUserLibrary implements DatabaseConnection
 			//e.printStackTrace();
 			return null;
 		}
+	}
+	
+	public static MySQLConnection userLibrary(DBUserLibrary lib){
+		if(lib != null)
+			 connection = new MySQLConnection(
+					lib.getUrl(), 
+					lib.getCatalog(), 
+					lib.getUser(), 
+					lib.getPassword(), 
+					lib.getClassName());
+		return connection;
 	}
 
 	@Override

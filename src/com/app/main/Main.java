@@ -1,13 +1,11 @@
 package com.app.main;
 
-import java.util.Scanner;
-
 import com.app.database.DBManager;
 import com.app.database.MySQLConnection;
 import com.app.event.LoginEvent;
 import com.app.listener.LoginListener;
 import com.app.model.User;
-import com.app.util.Instruction;
+import com.app.util.Config;
 import com.app.window.ConfigWindow;
 import com.app.window.LoginWindow;
 import com.app.window.PrimaryWindow;
@@ -51,19 +49,12 @@ public class Main extends Application implements LoginListener{
 	//Initialize database connection
 	public Boolean initilizeDatabaseConn(){
 		try{
-			Scanner config = Instruction.getConfig();
+			MySQLConnection config = MySQLConnection.userLibrary(Config.getConnectionConfig());
 			Boolean flag = false;
 			manager = new DBManager();
-			
+		
 			if(config != null){
-				
-				manager.setDatabaseConnection(
-						new MySQLConnection(
-								config.nextLine().trim(),
-								config.nextLine().trim(),
-								config.nextLine().trim(),
-								config.nextLine().trim(),
-								config.nextLine().trim()));
+				manager.setDatabaseConnection(config);
 				manager.openConnection();
 				
 				if(manager.getConnection() != null)
@@ -72,7 +63,7 @@ public class Main extends Application implements LoginListener{
 			
 			return flag;
 		}catch(Exception e){
-			//e.printStackTrace();
+			e.printStackTrace();
 			return false;
 		}
 	}

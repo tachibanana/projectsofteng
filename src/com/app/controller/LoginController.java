@@ -13,7 +13,7 @@ import com.app.main.Main;
 import com.app.model.Attempt;
 import com.app.model.User;
 import com.app.util.Initializer;
-import com.app.util.Instruction;
+import com.app.util.Logs;
 import com.app.util.ResourceLoader;
 
 import javafx.animation.FadeTransition;
@@ -66,7 +66,7 @@ public class LoginController implements Initializable, ControllerListener{
 			imageView.setImage(image);
 			
 			buttonLogin.setDisable(true);
-			attempt = Instruction.getLoginAttempt();
+			attempt = Logs.getLoginAttempt();
 			
 			if(attempt.getNumberOfAttempt() >= 3){
 				usernameField.setDisable(true);
@@ -105,15 +105,15 @@ public class LoginController implements Initializable, ControllerListener{
 				Initializer.addLoginListener(Main.getInstance());
 				Initializer.callLoginListener(loginEvent);
 				
-				Instruction.setLoginAttempt(null);
+				Logs.setLoginAttempt(new Attempt(0,null));
 
 				playTransition(0);
 				
 			}else if(attempt.getNumberOfAttempt() == 3){
-				Instruction.setLoginAttempt(attempt);
+				Logs.setLoginAttempt(attempt);
 				playTransition(2);
 			}else{
-				Instruction.setLoginAttempt(attempt);
+				Logs.setLoginAttempt(attempt);
 				playTransition(1);
 			}
 		}
@@ -132,7 +132,7 @@ public class LoginController implements Initializable, ControllerListener{
 	public void controllerLoad(ControllerEvent event) {
 		if(event.getClazz().trim().equals(getClass().getCanonicalName().trim())){
 			manager =  event.getManager();
-			attempt = Instruction.getLoginAttempt();
+			attempt = Logs.getLoginAttempt();
 		}
 		
 	}

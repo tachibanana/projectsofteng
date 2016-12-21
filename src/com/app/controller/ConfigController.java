@@ -4,7 +4,7 @@ import com.app.database.DBManager;
 import com.app.database.MySQLConnection;
 import com.app.event.ControllerEvent;
 import com.app.listener.ControllerListener;
-import com.app.util.Instruction;
+import com.app.util.Config;
 
 import javafx.animation.FadeTransition;
 import javafx.event.ActionEvent;
@@ -76,7 +76,7 @@ public class ConfigController implements ControllerListener{
 	
 	@FXML
 	public void handleSaveOnAction(ActionEvent event) throws Exception{
-		Instruction.setConfig(
+		Config.setConnectionConfig(
 				hostField.getText(), 
 				portField.getText(), 
 				catalogField.getText(), 
