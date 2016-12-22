@@ -21,7 +21,6 @@ public class ConfigWindow {
 		configStage.setResizable(false);
 		configStage.setMaximized(false);
 		configStage.setOnCloseRequest(e -> System.exit(0));
-		
 		Parent root = FXMLLoader.load(ResourceLoader.source("fxml/config.fxml"));
 		
 		Scene scene = new Scene(root, 350.0 , 320.0);

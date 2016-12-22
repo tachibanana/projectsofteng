@@ -6,6 +6,6 @@ public interface DatabaseConnection {
 	
 	public Connection getConnection();
 	public String getConnectionURL();
-	public String getConnectionStatus();
+	public Boolean isConnected();
 
 }

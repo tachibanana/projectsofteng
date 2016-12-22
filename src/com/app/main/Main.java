@@ -1,7 +1,9 @@
 package com.app.main;
 
 import com.app.database.DBManager;
+import com.app.database.DatabaseConnection;
 import com.app.database.MySQLConnection;
+import com.app.database.SQLiteConnection;
 import com.app.event.LoginEvent;
 import com.app.listener.LoginListener;
 import com.app.model.User;
@@ -16,7 +18,7 @@ import javafx.stage.Stage;
 public class Main extends Application implements LoginListener{
 	
 	private static Main main;
-	private DBManager manager;
+	private static DBManager manager;
 	private static Boolean isLoginSuccess = false;
 	private static volatile User user;
 
@@ -49,19 +51,25 @@ public class Main extends Application implements LoginListener{
 	//Initialize database connection
 	public Boolean initilizeDatabaseConn(){
 		try{
-			MySQLConnection config = MySQLConnection.userLibrary(Config.getConnectionConfig());
-			Boolean flag = false;
+			DatabaseConnection config = null;
+			boolean isSuccess = false;
 			manager = new DBManager();
-		
-			if(config != null){
-				manager.setDatabaseConnection(config);
-				manager.openConnection();
+
+			if(Config.getConnectionConfig() != null){
+				if(Config.getConnectionConfig().getClassName().equals("com.mysql.jdbc.Driver"))
+					 config = new MySQLConnection(Config.getConnectionConfig());
+				else if(Config.getConnectionConfig().getClassName().equals("org.sqlite.JDBC"))
+					 config = new SQLiteConnection(Config.getConnectionConfig());
 				
-				if(manager.getConnection() != null)
-					flag = true;
+				if(config != null){
+					manager.setDatabaseConnection(config);
+					manager.openConnection();
+					
+					if(manager.getDatabaseConnection().isConnected())
+						isSuccess = true;
+				}
 			}
-			
-			return flag;
+			return isSuccess;
 		}catch(Exception e){
 			e.printStackTrace();
 			return false;

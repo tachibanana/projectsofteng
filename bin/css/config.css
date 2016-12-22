@@ -1,14 +1,14 @@
 
-#button_test{
+#button_connect{
 	-fx-background-color:#2ecc71;
 	-fx-text-fill: #ffffff;
 }
 
-#button_test:hover{
+#button_connect:hover{
 	-fx-background-color:#27ae60;
 }
 
-#button_test:pressed{
+#button_connect:pressed{
 	-fx-background-color: gray;
 }
 

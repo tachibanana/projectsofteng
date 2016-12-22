@@ -1,13 +1,13 @@
 package com.app.database;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
 import com.app.model.User;
-import com.mysql.jdbc.PreparedStatement;
 
 public class DBManager {
 	
@@ -37,8 +37,8 @@ public class DBManager {
 		}
 	}
 	
-	public final Connection getConnection(){
-		return conn;
+	public final DatabaseConnection getDatabaseConnection(){
+		return dbconn;
 	}
 	
 	public User getUserWithUsernameAndPassword(String username,String password){
@@ -60,7 +60,7 @@ public class DBManager {
 		try{
 			List<User> listOfUser = new ArrayList<User>();
 			String sql = "SELECT * FROM tbluser";
-			PreparedStatement pst = (PreparedStatement) getConnection().prepareStatement(sql);
+			PreparedStatement pst = (PreparedStatement) conn.prepareStatement(sql);
 			ResultSet result = pst.executeQuery();
 			while(result.next()){
 				User user = new User(
@@ -83,7 +83,7 @@ public class DBManager {
 	public void updateUserPasswordById(String userId ,String newPassword){
 		try{
 			String sql="UPDATE tbluser SET password = ? WHERE user_id = ?;";
-			PreparedStatement pst = (PreparedStatement) getConnection().prepareStatement(sql);
+			PreparedStatement pst = (PreparedStatement) conn.prepareStatement(sql);
 			pst.setString(1, newPassword);
 			pst.setString(2, userId);
 			pst.executeUpdate();

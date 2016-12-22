@@ -6,9 +6,10 @@ import java.sql.SQLException;
 
 public class MySQLConnection extends DBUserLibrary implements DatabaseConnection{
 
-	private static MySQLConnection connection;
-	public MySQLConnection(String url, String catalog, String user, String password, String className) {
-		super(url, catalog, user, password, className);
+	private boolean isConnected = false;
+	
+	public MySQLConnection(DBUserLibrary lib) {
+			super(lib.getUrl(), lib.getCatalog(), lib.getUser(), lib.getPassword(), lib.getClassName());
 	}
 	
 	@Override
@@ -17,22 +18,13 @@ public class MySQLConnection extends DBUserLibrary implements DatabaseConnection
 		try {
 			Class.forName(getClassName());
 			Connection conn = DriverManager.getConnection(getConnectionURL());
+			isConnected = true;
 			return conn;
 		} catch (SQLException | ClassNotFoundException e) {
 			//e.printStackTrace();
+			isConnected = false;
 			return null;
 		}
-	}
-	
-	public static MySQLConnection userLibrary(DBUserLibrary lib){
-		if(lib != null)
-			 connection = new MySQLConnection(
-					lib.getUrl(), 
-					lib.getCatalog(), 
-					lib.getUser(), 
-					lib.getPassword(), 
-					lib.getClassName());
-		return connection;
 	}
 
 	@Override
@@ -42,9 +34,8 @@ public class MySQLConnection extends DBUserLibrary implements DatabaseConnection
 	}
 
 	@Override
-	public String getConnectionStatus() {
-		// TODO Auto-generated method stub
-		return null;
+	public Boolean isConnected() {
+		return isConnected;
 	}
 
 }

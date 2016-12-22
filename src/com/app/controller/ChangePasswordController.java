@@ -86,7 +86,8 @@ public class ChangePasswordController implements Initializable, ControllerListen
 		if((oldPasswordField.getText().trim().equals("") || newPasswordField.getText().trim().equals("")
 				|| confirmPasswordField.getText().trim().equals(""))) 
 			buttonUpdate.setDisable(true);
-		else if(!confirmPasswordField.getText().trim().equals(newPasswordField.getText().trim())){
+		else if(!confirmPasswordField.getText().trim().equals(newPasswordField.getText().trim())
+				|| !newPasswordField.getText().matches("[a-zA-Z0-9]{6,26}+")){
 			buttonUpdate.setDisable(true);
 			confirmPasswordField.setStyle("-fx-border-color: #e74c3c;-fx-border-width: 2;");
 		}else

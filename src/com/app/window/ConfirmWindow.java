@@ -1,5 +1,6 @@
 package com.app.window;
 
+import com.app.util.Config;
 import com.app.util.ResourceLoader;
 
 import javafx.geometry.Pos;
@@ -15,7 +16,7 @@ import javafx.stage.Stage;
 public class ConfirmWindow {
 	
 	private static Boolean flag;
-	public static Boolean display(String message){
+	public static synchronized Boolean display(String message){
 		try{
 			
 			Stage stage = new Stage();
@@ -45,9 +46,9 @@ public class ConfirmWindow {
 			buttonYes.setPrefSize(70, 30);
 			buttonYes.setOnAction(e -> {
 				flag = true;
+				Config.setConnectionConfig(null, null, null, null, null, null, null);
 				stage.close();
 			});
-			
 			
 			Button buttonNo = new Button("No");
 			buttonNo.setId("button-no");

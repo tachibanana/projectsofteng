@@ -27,7 +27,6 @@ public class Logs {
 					attempt = new Attempt(numberOfAttempt, lastLogin);
 			}
 			
-			System.out.println(numberOfAttempt);
 			return attempt;
 		}catch(Exception e){
 			e.printStackTrace();

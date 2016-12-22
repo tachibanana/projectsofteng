@@ -26,7 +26,6 @@ public class LoginWindow {
 				System.exit(0);
 		});
 		
-		
 		Parent root = (Parent) FXMLLoader.load(ResourceLoader.source("fxml/login.fxml"));
 		Scene scene = new Scene(root, 520 , 390);
 		scene.getStylesheets().add(ResourceLoader.source("css/login.css").toString());

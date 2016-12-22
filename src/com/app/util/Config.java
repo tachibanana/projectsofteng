@@ -32,13 +32,15 @@ public class Config {
 					flag = false;
 			}
 			
-			if(flag)
+			if(flag && properties[6].trim().equals("com.mysql.jdbc.Driver"))
 				dbLibrary = new DBUserLibrary(
-						properties[0] + properties[1] + ":" + properties[2] + "/",
-						properties[3],
-						properties[4],
-						properties[5],
-						properties[6]);
+						properties[0] + properties[1].trim() + ":" + properties[2].trim() + "/",
+						properties[3].trim(),
+						properties[4].trim(),
+						properties[5].trim(),
+						properties[6].trim());
+			else if(flag && properties[6].trim().equals("org.sqlite.JDBC"))
+				dbLibrary = new DBUserLibrary(properties[0].trim(), properties[3].trim(), null, null, properties[6].trim());
 			
 			return dbLibrary;
 		}catch(IOException e){
@@ -47,18 +49,18 @@ public class Config {
 		}
 	}
 	
-	public static void setConnectionConfig(String host, String port,
-			String catalog, String username, String password){
+	public static void setConnectionConfig(String url, String host, String port,
+			String catalog, String username, String password, String classname){
 			
 		try{
 			Properties prop = new Properties();
-			prop.setProperty("db.url", "jdbc:mysql://");
-			prop.setProperty("db.host", host);
-			prop.setProperty("db.port", port);
-			prop.setProperty("db.catalog", catalog);
-			prop.setProperty("db.username", username);
-			prop.setProperty("db.password", password);
-			prop.setProperty("db.classname", "com.mysql.jdbc.Driver");
+			prop.setProperty("db.url", url == null ? "jdbc:mysql://" : url);
+			prop.setProperty("db.host", host == null ? "" : host);
+			prop.setProperty("db.port", port == null ? "" : port);
+			prop.setProperty("db.catalog", catalog == null ? "" : catalog);
+			prop.setProperty("db.username", username == null ? "" : username);
+			prop.setProperty("db.password", password == null ? "" : password);
+			prop.setProperty("db.classname", classname == null ? "com.mysql.jdbc.Driver" : classname);
 			
 			prop.store(new FileOutputStream(ResourceLoader.dir() + "/imp/other/config/config.properties"), null);
 		}catch(IOException e){
