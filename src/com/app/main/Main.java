@@ -17,9 +17,8 @@ import javafx.stage.Stage;
 
 public class Main extends Application implements LoginListener{
 	
-	private static Main main;
 	private static DBManager manager;
-	private static Boolean isLoginSuccess = false;
+	private static boolean isLoginSuccess = false;
 	private static volatile User user;
 
 	@Override
@@ -74,13 +73,6 @@ public class Main extends Application implements LoginListener{
 			e.printStackTrace();
 			return false;
 		}
-	}
-	
-	//Return Main instance
-	public static Main getInstance(){
-		if(main == null)
-			main = new Main();
-		return main;
 	}
 	
 	public static void main(String[] args){

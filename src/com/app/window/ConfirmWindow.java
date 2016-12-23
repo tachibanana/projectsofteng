@@ -46,7 +46,11 @@ public class ConfirmWindow {
 			buttonYes.setPrefSize(70, 30);
 			buttonYes.setOnAction(e -> {
 				flag = true;
-				Config.setConnectionConfig(null, null, null, null, null, null, null);
+				if(Config.getConnectionConfig() != null){
+					if(Config.getConnectionConfig().getClassName().trim().equals("org.sqlite.JDBC"))
+						Config.setConnectionConfig(null, null, null, null, null, null, null);
+				}
+				
 				stage.close();
 			});
 			

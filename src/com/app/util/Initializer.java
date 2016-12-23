@@ -5,17 +5,10 @@ import com.app.event.LoginEvent;
 import com.app.listener.ControllerListener;
 import com.app.listener.LoginListener;
 
-public class Initializer {
+public abstract class Initializer {
 	
 	private static LoginListener loginListener;
 	private static ControllerListener controllerListener;
-	private static Initializer initializer;
-	
-	public static Initializer getInstance(){
-		if(initializer == null)
-			initializer = new Initializer();
-		return initializer;
-	}
 	
 	public static void callLoginListener(LoginEvent event){
 		loginListener.controllerExited(event);

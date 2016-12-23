@@ -7,7 +7,7 @@ import java.util.Properties;
 
 import com.app.database.DBUserLibrary;
 
-public class Config {
+public abstract class Config {
 	
 	public static DBUserLibrary getConnectionConfig(){
 		try{

@@ -102,7 +102,7 @@ public class LoginController implements Initializable, ControllerListener{
 				loginEvent.setIsSuccess(isSuccess);
 				loginEvent.setUser(user);
 				
-				Initializer.addLoginListener(Main.getInstance());
+				Initializer.addLoginListener(new Main());
 				Initializer.callLoginListener(loginEvent);
 				
 				Logs.setLoginAttempt(new Attempt(0,null));

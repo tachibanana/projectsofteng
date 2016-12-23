@@ -55,8 +55,7 @@ public class ConfigController implements ControllerListener{
 			String className = "com.mysql.jdbc.Driver";
 			manager.setDatabaseConnection(
 					new MySQLConnection(new DBUserLibrary(url,catalog,user,password,className)));
-			
-			
+	
 			manager.openConnection();
 			
 			if(!manager.getDatabaseConnection().isConnected()){
@@ -88,7 +87,7 @@ public class ConfigController implements ControllerListener{
 	@FXML
 	public void handleSaveOnAction(ActionEvent event) throws Exception{
 		if(checkEmbedded.isSelected())
-			Config.setConnectionConfig("jdbc:sqlite",null, null, "dbjavafx", null, null,"org.sqlite.JDBC");
+			Config.setConnectionConfig("jdbc:sqlite",null, null,"dbjavafx", null, null,"org.sqlite.JDBC");
 		else
 			Config.setConnectionConfig(
 					null,

@@ -7,7 +7,7 @@ import java.util.Properties;
 
 import com.app.model.Attempt;
 
-public class Logs {
+public abstract class Logs {
 	
 	public static Attempt getLoginAttempt(){
 		try{
@@ -49,13 +49,39 @@ public class Logs {
 	
 	public static Boolean isAttemptExpired(Calendar calendar){
 		try{
-			int interval = Parser.getIntervalOnMinute(calendar, Calendar.getInstance());
+			int interval = getIntervalOnMinute(calendar, Calendar.getInstance());
 			return (interval <= 60 ? false : true );
 		}catch(Exception e){
 			e.printStackTrace();
 			return true;
 		}
 		
+	}
+	
+	private static int getIntervalOnMinute(Calendar calendar1 , Calendar calendar2 ){
+		try{
+			int timeOnMinute = 0;
+			int hour = 0;
+			int minute = 0;
+			
+			if(calendar1.get(Calendar.YEAR) == calendar2.get(Calendar.YEAR) &&
+					calendar1.get(Calendar.MONTH) == calendar2.get(Calendar.MONTH) &&
+							calendar1.get(Calendar.DAY_OF_MONTH) == calendar2.get(Calendar.DAY_OF_MONTH)){
+				
+				if((hour = calendar2.get(Calendar.HOUR_OF_DAY) - calendar1.get(Calendar.HOUR_OF_DAY)) >= 0){
+					timeOnMinute = hour * 60;
+					minute = calendar2.get(Calendar.MINUTE) - calendar1.get(Calendar.MINUTE);
+					timeOnMinute += minute + 1;
+								
+				}else if((minute = calendar2.get(Calendar.MINUTE) - calendar1.get(Calendar.MINUTE)) >= 0){
+					timeOnMinute += minute + 1;
+				}
+			}		
+			return timeOnMinute * 1 ;
+		}catch(Exception e){
+			e.printStackTrace();
+			return 0;
+		}
 	}
 
 }
