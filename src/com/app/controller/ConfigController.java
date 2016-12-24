@@ -126,10 +126,8 @@ public class ConfigController implements ControllerListener{
 	@Override
 	public void controllerLoad(ControllerEvent event) {
 		
-		if(event.getClazz().trim().equals(getClass().getCanonicalName())){
+		if(event.getClazz().trim().equals(getClass().getCanonicalName()))
 			manager = event.getManager();
-			
-		}
 	}
 	
 	private void addFadeInAnimation(Node node){
