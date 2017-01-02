@@ -11,6 +11,7 @@ import com.app.model.User;
 import com.app.util.Initializer;
 import com.app.window.ChangePasswordWindow;
 import com.app.window.ConfirmWindow;
+import com.app.window.StudentInfoWindow;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -39,6 +40,17 @@ public class PrimaryController implements Initializable, ControllerListener{
 		Initializer.callControllerListener(controllerEvent);
 		
 		ChangePasswordWindow.display();
+	}
+	
+	@FXML
+	public synchronized void handleStudentOnAction(ActionEvent event){
+		try{
+			System.out.println("ayus");
+			StudentInfoWindow.display(manager);
+			
+		}catch(Exception e){
+			e.printStackTrace();
+		}
 	}
 
 	@Override
