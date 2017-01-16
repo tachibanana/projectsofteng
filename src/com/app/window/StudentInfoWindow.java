@@ -1,7 +1,5 @@
 package com.app.window;
 
-import java.net.URL;
-
 import com.app.controller.StudentInfoController;
 import com.app.database.DBManager;
 import com.app.event.ControllerEvent;
@@ -21,6 +19,8 @@ public abstract class StudentInfoWindow {
 			Stage stage = new Stage();
 			stage.setTitle("Student Info");
 			stage.initModality(Modality.APPLICATION_MODAL);
+			stage.setMinWidth(870);
+			stage.setMinHeight(400);
 			
 			ControllerEvent event = new ControllerEvent();
 			event.setManager(manager);
@@ -29,7 +29,9 @@ public abstract class StudentInfoWindow {
 			Initializer.callControllerListener(event);
 			
 			Parent root = FXMLLoader.load(ResourceLoader.source("fxml/student_info.fxml"));
-			Scene scene = new Scene(root , 300 , 300);
+			Scene scene = new Scene(root , 880 , 400);
+			scene.getStylesheets().add(ResourceLoader.source("css/student_info.css").toString());
+			
 			stage.setScene(scene);
 			stage.showAndWait();
 		}catch(Exception e){
