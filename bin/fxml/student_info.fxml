@@ -37,10 +37,10 @@
                         <TextField layoutX="271.0" layoutY="44.0" prefHeight="25.0" prefWidth="131.0" promptText="First" />
                         <TextField layoutX="402.0" layoutY="44.0" prefHeight="25.0" prefWidth="129.0" promptText="Middle" />
                         <TextField layoutX="141.0" layoutY="75.0" prefHeight="25.0" prefWidth="390.0" promptText="Enter email address" />
-                        <ComboBox layoutX="140.0" layoutY="106.0" prefHeight="25.0" prefWidth="390.0" promptText="Select course" />
-                        <ComboBox disable="true" layoutX="140.0" layoutY="135.0" prefHeight="25.0" prefWidth="390.0" promptText="Select year" />
-                        <Button fx:id="btnsave" layoutX="589.0" layoutY="176.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="80.0" text="Save" />
-                        <Button fx:id="btncancel" layoutX="677.0" layoutY="176.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="81.0" text="Cancel" />
+                        <ComboBox fx:id="dropdownCourseList" layoutX="140.0" layoutY="106.0" prefHeight="25.0" prefWidth="390.0" promptText="Select course" />
+                        <ComboBox fx:id="dropdownYearList" disable="true" layoutX="140.0" layoutY="135.0" prefHeight="25.0" prefWidth="390.0" promptText="Select year" />
+                        <Button id="button-save" fx:id="buttonSave" layoutX="589.0" layoutY="176.0" mnemonicParsing="false" onAction="#handleSaveOnAction" prefHeight="30.0" prefWidth="80.0" text="Save" />
+                        <Button id="button-cancel" fx:id="buttonCancel" layoutX="677.0" layoutY="176.0" mnemonicParsing="false" onAction="#handleCancelOnAction" prefHeight="30.0" prefWidth="81.0" text="Cancel" />
                      </children>
                   </AnchorPane>
                </children></VBox>

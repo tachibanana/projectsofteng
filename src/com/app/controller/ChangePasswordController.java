@@ -8,7 +8,7 @@ import com.app.database.DBManager;
 import com.app.event.ControllerEvent;
 import com.app.event.FocusEvent;
 import com.app.listener.ControllerListener;
-import com.app.model.User;
+import com.app.model.user.User;
 import com.app.util.ResourceLoader;
 
 import javafx.application.Platform;
@@ -229,7 +229,7 @@ public class ChangePasswordController implements Initializable, ControllerListen
 			if(user.getPassword().equals(oldPasswordField.getText().trim())){
 				if(newPasswordField.getText().trim().equals(confirmPasswordField.getText().trim())){
 					if(!oldPasswordField.getText().trim().equals(newPasswordField.getText().trim())){
-						manager.updateUserPasswordById(user.getUserId(), newPasswordField.getText().trim());
+						manager.updateUserPasswordByWithUsername(user.getUsername(), newPasswordField.getText().trim());
 						
 						messageBox.setStyle("-fx-background-color:#2ecc71");
 						messageLabel.setText("You have successfully change your password");

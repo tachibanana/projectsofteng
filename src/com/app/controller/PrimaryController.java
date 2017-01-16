@@ -7,7 +7,7 @@ import java.util.ResourceBundle;
 import com.app.database.DBManager;
 import com.app.event.ControllerEvent;
 import com.app.listener.ControllerListener;
-import com.app.model.User;
+import com.app.model.user.User;
 import com.app.util.Initializer;
 import com.app.window.ChangePasswordWindow;
 import com.app.window.ConfirmWindow;
@@ -45,9 +45,7 @@ public class PrimaryController implements Initializable, ControllerListener{
 	@FXML
 	public synchronized void handleStudentOnAction(ActionEvent event){
 		try{
-			System.out.println("ayus");
 			StudentInfoWindow.display(manager);
-			
 		}catch(Exception e){
 			e.printStackTrace();
 		}

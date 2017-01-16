@@ -7,7 +7,11 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.app.model.User;
+import com.app.model.user.Admin;
+import com.app.model.user.Course;
+import com.app.model.user.Student;
+import com.app.model.user.User;
+import com.app.model.user.Year;
 
 public class DBManager {
 	
@@ -63,14 +67,29 @@ public class DBManager {
 			PreparedStatement pst = (PreparedStatement) conn.prepareStatement(sql);
 			ResultSet result = pst.executeQuery();
 			while(result.next()){
-				User user = new User(
-						result.getString("user_id"),
-						result.getString("first_name"),
-						result.getString("last_name"),
-						result.getString("username"),
-						result.getString("password"),
-						result.getString("access_type"),
-						(result.getInt("is_activated") == 1 ? true : false));
+				User user = null;
+				String username = result.getString("username");
+				String password = result.getString("password");
+				String accessType = result.getString("access_type");
+				boolean isActivate = (result.getInt("is_activated") == 1);
+				
+				if(accessType.equals("ADMIN")){
+					
+					user = new Admin();
+					user.setUsername(username);
+					user.setPassword(password);
+					user.setAccessType(accessType);
+					user.setActivate(isActivate);
+			
+				}else if(accessType.equals("STUDENT")){
+					
+					user = new Student();
+					user.setUsername(username);
+					user.setPassword(password);
+					user.setAccessType(accessType);
+					user.setActivate(isActivate);
+					
+				}
 				listOfUser.add(user);
 			}
 			return listOfUser;
@@ -80,17 +99,64 @@ public class DBManager {
 		}
 	}
 	
-	public void updateUserPasswordById(String userId ,String newPassword){
+	public void updateUserPasswordByWithUsername(String username ,String newPassword){
 		try{
-			String sql="UPDATE tbluser SET password = ? WHERE user_id = ?;";
+			String sql="UPDATE tbluser SET password = ? WHERE username = ?;";
 			PreparedStatement pst = (PreparedStatement) conn.prepareStatement(sql);
 			pst.setString(1, newPassword);
-			pst.setString(2, userId);
+			pst.setString(2, username);
 			pst.executeUpdate();
 			
 		}catch(Exception e){
 			e.printStackTrace();
 		}
 	}
+	
+	public List<Course> getListOfCourse(){
+		try{
+			List<Course> listOfCourse = new ArrayList<Course>();
+			String sql = "SELECT * FROM tblcourse";
+			PreparedStatement pst = conn.prepareStatement(sql);
+			ResultSet rs = pst.executeQuery();
+			
+			while(rs.next()){
+				
+				String courseId = rs.getString("course_id");
+				String courseCode = rs.getString("course_code");
+				String courseDefinition = rs.getString("course_definition");
+				List<Year> listOfYear = getListOfYearByCourseId(courseId);
+				Course course = new Course(courseId , 
+						courseCode , courseDefinition , listOfYear);
+				
+				listOfCourse.add(course);
+			}
+			
+			return listOfCourse;
+		}catch(Exception e){
+			e.printStackTrace();
+			return null;
+		}
+	}
 
+	public List<Year> getListOfYearByCourseId(String courseId){
+		try{
+			List<Year> listOfYear = new ArrayList<Year>();
+			String code = (courseId != null ? courseId : "");
+			String sql = "SELECT * FROM tblyear where course_id = ?";
+
+			PreparedStatement pst = conn.prepareStatement(sql);
+			pst.setString(1, code);
+			ResultSet rs = pst.executeQuery();
+			
+			while(rs.next()){
+				Year year = new Year(rs.getString("year_id") , rs.getString("year_code"));
+				listOfYear.add(year);
+			}
+			
+			return listOfYear;
+		}catch(Exception e){
+			e.printStackTrace();
+			return null;
+		}
+	}
 }

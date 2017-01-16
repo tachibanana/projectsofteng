@@ -6,7 +6,7 @@ import com.app.database.MySQLConnection;
 import com.app.database.SQLiteConnection;
 import com.app.event.LoginEvent;
 import com.app.listener.LoginListener;
-import com.app.model.User;
+import com.app.model.user.User;
 import com.app.util.Config;
 import com.app.window.ConfigWindow;
 import com.app.window.LoginWindow;
@@ -74,9 +74,11 @@ public class Main extends Application implements LoginListener{
 			return false;
 		}
 	}
+	public static String test(com.app.model.user.User user){
+		return user.getUsername();
+	}
 	
 	public static void main(String[] args){
-		
 		launch(args);
 	}
 

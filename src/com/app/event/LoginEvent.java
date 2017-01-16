@@ -1,6 +1,6 @@
 package com.app.event;
 
-import com.app.model.User;
+import com.app.model.user.User;
 
 public class LoginEvent {
 	
