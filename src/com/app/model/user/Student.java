@@ -3,7 +3,7 @@ package com.app.model.user;
 public class Student extends Person{
 	
 	private String email;
-	private int studentNumber;
+	private long studentNumber;
 	private String course;
 	private String year;
 	private String listOfSubject;
@@ -16,11 +16,11 @@ public class Student extends Person{
 		this.email = email;
 	}
 	
-	public int getStudentNumber() {
+	public long getStudentNumber() {
 		return studentNumber;
 	}
 	
-	public void setStudentNumber(int studentNumber) {
+	public void setStudentNumber(long studentNumber) {
 		this.studentNumber = studentNumber;
 	}
 	

@@ -42,42 +42,27 @@
                         <ComboBox fx:id="dropdownYearList" disable="true" layoutX="139.0" layoutY="159.0" prefHeight="25.0" prefWidth="390.0" promptText="Select year" />
                         <Button id="button-save" fx:id="buttonSave" layoutX="581.0" layoutY="223.0" mnemonicParsing="false" onAction="#handleSaveOnAction" prefHeight="30.0" prefWidth="80.0" text="Save" />
                         <Button id="button-cancel" fx:id="buttonCancel" layoutX="669.0" layoutY="223.0" mnemonicParsing="false" onAction="#handleCancelOnAction" prefHeight="30.0" prefWidth="81.0" text="Cancel" />
-                        <Label fx:id="messageStudentNumber" layoutX="551.0" layoutY="14.0" opacity="0.8" prefHeight="25.0" prefWidth="190.0" style="-fx-background-color: #e74c3c; -fx-effect: dropshadow(three-pass-box, gray, 2, 0, 0, 0);" text="student number is required" textFill="WHITE" visible="false">
-                           <font>
-                              <Font size="14.0" />
-                           </font>
+                        <Label fx:id="messageStudentNumber" layoutX="551.0" layoutY="14.0" prefHeight="25.0" prefWidth="190.0" style="-fx-background-color: #e74c3c; -fx-effect: dropshadow(three-pass-box, gray, 2, 0, 0, 0);" text="student number is required" textFill="WHITE" visible="false">
                            <padding>
                               <Insets left="5.0" />
                            </padding>
                         </Label>
-                        <Label fx:id="messageStudentName" layoutX="550.0" layoutY="51.0" opacity="0.82" prefHeight="25.0" prefWidth="190.0" style="-fx-background-color: #e74c3c; -fx-effect: dropshadow(three-pass-box, gray, 2, 0, 0, 0);" text="student name is required" textFill="WHITE" visible="false">
-                           <font>
-                              <Font size="14.0" />
-                           </font>
+                        <Label fx:id="messageStudentName" layoutX="550.0" layoutY="51.0" prefHeight="25.0" prefWidth="190.0" style="-fx-background-color: #e74c3c; -fx-effect: dropshadow(three-pass-box, gray, 2, 0, 0, 0);" text="student name is required" textFill="WHITE" visible="false">
                            <padding>
                               <Insets left="5.0" />
                            </padding>
                         </Label>
-                        <Label fx:id="messageEmail" layoutX="550.0" layoutY="87.0" opacity="0.8" prefHeight="25.0" prefWidth="190.0" style="-fx-background-color: #e74c3c; -fx-effect: dropshadow(three-pass-box, gray, 2, 0, 0, 0);" text="email address is required" textFill="WHITE" visible="false">
-                           <font>
-                              <Font size="14.0" />
-                           </font>
+                        <Label fx:id="messageEmail" layoutX="550.0" layoutY="87.0" prefHeight="25.0" prefWidth="190.0" style="-fx-background-color: #e74c3c; -fx-effect: dropshadow(three-pass-box, gray, 2, 0, 0, 0);" text="email address is required" textFill="WHITE" visible="false">
                            <padding>
                               <Insets left="5.0" />
                            </padding>
                         </Label>
-                        <Label fx:id="messageCourse" layoutX="550.0" layoutY="123.0" opacity="0.8" prefHeight="25.0" prefWidth="190.0" style="-fx-background-color: #e74c3c; -fx-effect: dropshadow(three-pass-box, gray, 2, 0, 0, 0);" text="please select a course" textFill="WHITE" visible="false">
-                           <font>
-                              <Font size="14.0" />
-                           </font>
+                        <Label fx:id="messageCourse" layoutX="550.0" layoutY="123.0" prefHeight="25.0" prefWidth="190.0" style="-fx-background-color: #e74c3c; -fx-effect: dropshadow(three-pass-box, gray, 2, 0, 0, 0);" text="please select a course" textFill="WHITE" visible="false">
                            <padding>
                               <Insets left="5.0" />
                            </padding>
                         </Label>
-                        <Label fx:id="messageYear" layoutX="550.0" layoutY="159.0" opacity="0.8" prefHeight="25.0" prefWidth="190.0" style="-fx-background-color: #e74c3c; -fx-effect: dropshadow(three-pass-box, gray, 2, 0, 0, 0);" text="please select a year" textFill="WHITE" visible="false">
-                           <font>
-                              <Font size="14.0" />
-                           </font>
+                        <Label fx:id="messageYear" layoutX="550.0" layoutY="159.0" prefHeight="25.0" prefWidth="190.0" style="-fx-background-color: #e74c3c; -fx-effect: dropshadow(three-pass-box, gray, 2, 0, 0, 0);" text="please select a year" textFill="WHITE" visible="false">
                            <padding>
                               <Insets left="5.0" />
                            </padding>

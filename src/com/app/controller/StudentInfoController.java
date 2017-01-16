@@ -8,7 +8,9 @@ import com.app.database.DBManager;
 import com.app.event.ControllerEvent;
 import com.app.listener.ControllerListener;
 import com.app.model.user.Course;
+import com.app.model.user.Student;
 import com.app.model.user.Year;
+import com.app.util.PasswordGenerator;
 
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -34,7 +36,7 @@ public class StudentInfoController implements ControllerListener , Initializable
 	@FXML
 	private TextField middlenameTextfield;
 	@FXML
-	private TextField emailextfield;
+	private TextField emailTextfield;
 	@FXML
 	private Button buttonSave;
 	@FXML
@@ -74,6 +76,42 @@ public class StudentInfoController implements ControllerListener , Initializable
 				dropdownCourseList.getItems().add(course.getCourseCode());
 			dropdownCourseList.valueProperty().addListener(this);
 		}
+		
+		studentNumberTextfield.focusedProperty().addListener((observer , oldValue , newValue)->{
+			messageStudentNumber.setVisible(false);
+			studentNumberTextfield.setStyle("-fx-border-width:0;");
+		});
+		
+		lastnameTextfield.focusedProperty().addListener((observer , oldValue , newValue)->{
+			messageStudentName.setVisible(false);
+			lastnameTextfield.setStyle("-fx-border-width:0;");
+		});
+		
+		firstnameTextfield.focusedProperty().addListener((observer , oldValue , newValue)->{
+			messageStudentName.setVisible(false);
+			firstnameTextfield.setStyle("-fx-border-width:0;");
+		});
+		
+		middlenameTextfield.focusedProperty().addListener((observer , oldValue , newValue)->{
+			messageStudentName.setVisible(false);
+			middlenameTextfield.setStyle("-fx-border-width:0;");
+		});
+		
+		emailTextfield.focusedProperty().addListener((observer , oldValue , newValue)->{
+			messageEmail.setVisible(false);
+			emailTextfield.setStyle("-fx-border-width:0;");
+		});
+		
+		dropdownCourseList.focusedProperty().addListener((observer , oldValue , newValue)->{
+			messageCourse.setVisible(false);
+			dropdownCourseList.setStyle("-fx-border-width:0;");
+		});
+		
+		dropdownYearList.focusedProperty().addListener((observer , oldValue , newValue)->{
+			messageYear.setVisible(false);
+			dropdownYearList.setStyle("-fx-border-width:0;");
+		});
+		
 	}
 
 	@Override
@@ -103,44 +141,181 @@ public class StudentInfoController implements ControllerListener , Initializable
 	
 	
 	@FXML
-	private void handleSaveOnAction(ActionEvent event){
-		if(!studentNumberTextfield.getText().trim().equals("")){
-			//not empty
-			if(studentNumberTextfield.getText().matches("[0-9]+")){
-				//valid input
-				System.out.println("it suz");
+	private synchronized void handleSaveOnAction(ActionEvent event) throws InterruptedException{
+	
+		try{
+			boolean isSuccess = true;
+			
+			if(!studentNumberTextfield.getText().trim().equals("")){
+				//not empty
+				if(studentNumberTextfield.getText().matches("[0-9]+")){
+					//valid input
+					studentNumberTextfield.setStyle("-fx-border-color:#2ecc71;-fx-border-width: 2;");
+				}else{
+					//not numeric
+					studentNumberTextfield.setStyle("-fx-border-color: #e74c3c;-fx-border-width: 2;");
+					isSuccess = false;
+					
+					messageBox.setStyle("-fx-background-color:#e74c3c");
+					messageLabel.setText("There was a problem with your submission.");
+					
+					messageStudentNumber.setVisible(true);
+					messageStudentNumber.setText("can only contain numbers");	
+					
+				}
 			}else{
-				//not numeric
-			}
-		}else{
-			//empty
-			messageBox.setStyle("-fx-background-color:#e74c3c");
-			messageLabel.setText("There was a problem with your submission.");
-			messageStudentNumber.setVisible(true);
-		}
-		
-		if(!lastnameTextfield.getText().trim().equals("")){
-			
-		}else{
-			messageBox.setStyle("-fx-background-color:#e74c3c");
-			messageLabel.setText("There was a problem with your submission.");
-			messageStudentName.setVisible(true);
-			
-		}if(!firstnameTextfield.getText().trim().equals("")){
+				//empty
+				studentNumberTextfield.setStyle("-fx-border-color: #e74c3c;-fx-border-width: 2;");
+				isSuccess = false;
 				
-		}else{
-			messageBox.setStyle("-fx-background-color:#e74c3c");
-			messageLabel.setText("There was a problem with your submission.");
-			messageStudentName.setVisible(true);
-		}if(!middlenameTextfield.getText().trim().equals("")){
+				messageBox.setStyle("-fx-background-color:#e74c3c");
+				messageLabel.setText("There was a problem with your submission.");
+				
+				messageStudentNumber.setVisible(true);
+				messageStudentNumber.setText("student number is required");
+				
+			}
 			
-		}else{
-			messageBox.setStyle("-fx-background-color:#e74c3c");
-			messageLabel.setText("There was a problem with your submission.");
-			messageStudentName.setVisible(true);
+			if(!emailTextfield.getText().trim().equals("")){
+				//not empty
+				if(emailTextfield.getText()
+						.matches("[0-9a-zA-Z]{3,20}+[(\\.)_]"
+								+ "[0-9a-zA-Z]{3,20}+@[a-zA-Z]+\\.[a-zA-Z0-9]{3,20}+")){
+					//valid input
+					emailTextfield.setStyle("-fx-border-color:#2ecc71;-fx-border-width: 2;");
+				}else{
+					//not valid
+					emailTextfield.setStyle("-fx-border-color: #e74c3c;-fx-border-width: 2;");
+					isSuccess = false;
+					
+					messageBox.setStyle("-fx-background-color:#e74c3c");
+					messageLabel.setText("There was a problem with your submission.");
+					
+					messageEmail.setVisible(true);
+					messageEmail.setText("please enter a valid email");	
+				}
+			}else{
+				//empty
+				emailTextfield.setStyle("-fx-border-color: #e74c3c;-fx-border-width: 2;");
+				isSuccess = false;
+				
+				messageBox.setStyle("-fx-background-color:#e74c3c");
+				messageLabel.setText("There was a problem with your submission.");
+				
+				messageEmail.setVisible(true);
+				messageEmail.setText("email address is required");
+			}
+			
+			if(dropdownCourseList.getSelectionModel().getSelectedIndex() < 0){
+				dropdownCourseList.setStyle("-fx-border-color: #e74c3c;-fx-border-width: 2;");
+				isSuccess = false;
+				
+				messageBox.setStyle("-fx-background-color:#e74c3c");
+				messageLabel.setText("There was a problem with your submission.");
+				
+				messageCourse.setVisible(true);
+				messageCourse.setText("please select a course");
+			}
+			
+			if(dropdownYearList.getSelectionModel().getSelectedIndex() < 0 && !dropdownYearList.isDisabled()){
+				dropdownYearList.setStyle("-fx-border-color: #e74c3c;-fx-border-width: 2;");
+				isSuccess = false;
+				
+				messageBox.setStyle("-fx-background-color:#e74c3c");
+				messageLabel.setText("There was a problem with your submission.");
+				
+				messageYear.setVisible(true);
+				messageYear.setText("please select a year");
+			}
+			
+			if(!lastnameTextfield.getText().trim().equals("")){
+				
+			}else{
+				lastnameTextfield.setStyle("-fx-border-color: #e74c3c;-fx-border-width: 1;");
+				isSuccess = false;
+				
+				messageBox.setStyle("-fx-background-color:#e74c3c");
+				messageLabel.setText("There was a problem with your submission.");
+				
+				messageStudentName.setVisible(true);
+				messageStudentName.setText("student name is required");
+				
+				
+			}if(!firstnameTextfield.getText().trim().equals("")){
+					
+			}else{
+				firstnameTextfield.setStyle("-fx-border-color: #e74c3c;-fx-border-width: 1;");
+				isSuccess = false;
+				
+				messageBox.setStyle("-fx-background-color:#e74c3c");
+				messageLabel.setText("There was a problem with your submission.");
+				
+				messageStudentName.setVisible(true);
+				messageStudentName.setText("student name is required");
+			}if(!middlenameTextfield.getText().trim().equals("")){
+				
+			}else{
+				middlenameTextfield.setStyle("-fx-border-color: #e74c3c;-fx-border-width: 1;");
+				isSuccess = false;
+				
+				messageBox.setStyle("-fx-background-color:#e74c3c");
+				messageLabel.setText("There was a problem with your submission.");
+				
+				messageStudentName.setVisible(true);
+				messageStudentName.setText("student name is required");
+			}
+			
+			if(isSuccess){
+				Student student = new Student();
+				
+				student.setLastName(lastnameTextfield.getText());
+				student.setFirstName(firstnameTextfield.getText());
+				student.setMiddleName(middlenameTextfield.getText());
+				
+				student.setStudentNumber(Integer.parseInt(studentNumberTextfield.getText()));
+				student.setEmail(emailTextfield.getText());
+				student.setCourse(manager
+						.getCourseByCode(dropdownCourseList
+								.getSelectionModel()
+								.getSelectedItem()).getCourseId());
+				student.setYear(manager.getYearByCode(dropdownYearList.getSelectionModel().getSelectedItem(), manager
+						.getCourseByCode(dropdownCourseList
+								.getSelectionModel()
+								.getSelectedItem()).getCourseId()).getYearId());
+				
+				String personId =  PasswordGenerator.generate("PID", manager);
+				String userId =  PasswordGenerator.generate("UID", manager);
+				
+				student.setUsername(student.getEmail());
+				student.setPassword(student.getStudentNumber() + "");
+				student.setAccessType("STUDENT");
+				student.setActivate(true);
+				
+				
+				manager.saveStudent(student);
+				manager.savePerson(student,personId, studentNumberTextfield.getText());
+				manager.saveUser(student, userId, personId);
+				
+				lastnameTextfield.setDisable(true);
+				firstnameTextfield.setDisable(true);
+				middlenameTextfield.setDisable(true);
+				
+				studentNumberTextfield.setDisable(true);
+				emailTextfield.setDisable(true);
+				dropdownCourseList.setDisable(true);
+				dropdownYearList.setDisable(true);
+				
+				buttonSave.setDisable(true);
+				buttonCancel.setText("Close");
+				
+				messageBox.setStyle("-fx-background-color:#2ecc71");
+				messageLabel.setText("You have successfully added a student");
+				
+			}
+		}catch(Exception e){
+			e.printStackTrace();
 		}
-		
-		
+	
 	}
 
 

@@ -192,6 +192,8 @@ public class DBManager {
 			pst.setInt(5, (user.isActivate() ? 1 : 0));
 			pst.setString(6, personId);
 			
+			pst.executeUpdate();
+			
 		}catch(Exception e){
 			e.printStackTrace();
 		}
@@ -203,7 +205,7 @@ public class DBManager {
 					+ "year_id) VALUES(? , ? , ? ,?)";
 			
 			PreparedStatement pst = conn.prepareStatement(sql);
-			pst.setInt(1, student.getStudentNumber());
+			pst.setLong(1, student.getStudentNumber());
 			pst.setString(2, student.getEmail());
 			pst.setString(3,student.getCourse());
 			pst.setString(4, student.getYear());
@@ -235,5 +237,23 @@ public class DBManager {
 			e.printStackTrace();
 			return null;
 		}
+	}
+	
+	public Course getCourseByCode(String code){
+		Course course = null;
+		for(Course c : getListOfCourse()){
+			if(c.getCourseCode().equalsIgnoreCase(code))
+				course = c;
+		}
+		return course;
+	}
+	
+	public Year getYearByCode(String code , String courseId){
+		Year year = null;
+		for(Year y : getListOfYearByCourseId(courseId)){
+			if(y.getYearCode().equalsIgnoreCase(code))
+				year = y;
+		}
+		return year;
 	}
 }
