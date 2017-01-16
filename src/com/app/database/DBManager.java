@@ -161,13 +161,13 @@ public class DBManager {
 		}
 	}
 	
-	public void savePerson(Person person , String studentNumber){
+	public synchronized void savePerson(Person person , String personId, String studentNumber){
 		try{
 			String sql = "INSERT INTO tblperson(person_id , last_name , first_name,"
 					+ "middle_name , student_info) VALUES(? , ? , ? ,?, ?)";
 			
 			PreparedStatement pst = conn.prepareStatement(sql);
-			pst.setString(1, "PID20170002");
+			pst.setString(1, personId);
 			pst.setString(2, person.getLastName());
 			pst.setString(3, person.getFirstName());
 			pst.setString(4, person.getMiddleName());
@@ -180,7 +180,24 @@ public class DBManager {
 		}
 	}
 	
-	public void saveStudent(Student student){
+	public synchronized void saveUser(User user, String userId,  String personId){
+		try{
+			String sql = "INSERT INTO tbluser(user_id , username , password,"
+					+ "access_type , is_activated, personal_info) VALUES(?,?,?,?,?,?)";
+			PreparedStatement pst = conn.prepareStatement(sql);
+			pst.setString(1, userId);
+			pst.setString(2, user.getUsername());
+			pst.setString(3, user.getPassword());
+			pst.setString(4, user.getAccessType());
+			pst.setInt(5, (user.isActivate() ? 1 : 0));
+			pst.setString(6, personId);
+			
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+	}
+	
+	public synchronized void saveStudent(Student student){
 		try{
 			String sql = "INSERT INTO tblstudent(student_number , email , course_id,"
 					+ "year_id) VALUES(? , ? , ? ,?)";
@@ -195,6 +212,28 @@ public class DBManager {
 			
 		}catch(Exception e){
 			e.printStackTrace();
+		}
+	}
+	
+	public String getTrackPassword(String prefix){
+		try{
+			
+			String id = null;
+			String sql = "SELECT * FROM tbltrack_password LIMIT 1";
+			
+			PreparedStatement pst = conn.prepareStatement(sql);
+			ResultSet rs = pst.executeQuery();
+			
+			while(rs.next()){
+				if(prefix.equalsIgnoreCase("UID"))
+					id = rs.getString("user_id");
+				else if(prefix.equalsIgnoreCase("PID"))
+					id = rs.getString("person_id");
+			}
+			return id;
+		}catch(Exception e){
+			e.printStackTrace();
+			return null;
 		}
 	}
 }
