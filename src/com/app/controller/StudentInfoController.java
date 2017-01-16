@@ -18,10 +18,23 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 public class StudentInfoController implements ControllerListener , Initializable , ChangeListener<String> {
 
+	@FXML
+	private TextField studentNumberTextfield;
+	@FXML
+	private TextField lastnameTextfield;
+	@FXML
+	private TextField firstnameTextfield;
+	@FXML
+	private TextField middlenameTextfield;
+	@FXML
+	private TextField emailextfield;
 	@FXML
 	private Button buttonSave;
 	@FXML
@@ -30,6 +43,20 @@ public class StudentInfoController implements ControllerListener , Initializable
 	private ComboBox<String> dropdownCourseList;
 	@FXML
 	private ComboBox<String> dropdownYearList;
+	@FXML
+	private VBox messageBox;
+	@FXML
+	private Label messageLabel;
+	@FXML
+	private Label messageStudentNumber;
+	@FXML
+	private Label messageStudentName;
+	@FXML
+	private Label messageEmail;
+	@FXML
+	private Label messageCourse;
+	@FXML
+	private Label messageYear;
 	private static DBManager manager;
 	private static List<Course> listOfCourse;
 	private static Course selectedCourse;
@@ -77,6 +104,42 @@ public class StudentInfoController implements ControllerListener , Initializable
 	
 	@FXML
 	private void handleSaveOnAction(ActionEvent event){
+		if(!studentNumberTextfield.getText().trim().equals("")){
+			//not empty
+			if(studentNumberTextfield.getText().matches("[0-9]+")){
+				//valid input
+				System.out.println("it suz");
+			}else{
+				//not numeric
+			}
+		}else{
+			//empty
+			messageBox.setStyle("-fx-background-color:#e74c3c");
+			messageLabel.setText("There was a problem with your submission.");
+			messageStudentNumber.setVisible(true);
+		}
+		
+		if(!lastnameTextfield.getText().trim().equals("")){
+			
+		}else{
+			messageBox.setStyle("-fx-background-color:#e74c3c");
+			messageLabel.setText("There was a problem with your submission.");
+			messageStudentName.setVisible(true);
+			
+		}if(!firstnameTextfield.getText().trim().equals("")){
+				
+		}else{
+			messageBox.setStyle("-fx-background-color:#e74c3c");
+			messageLabel.setText("There was a problem with your submission.");
+			messageStudentName.setVisible(true);
+		}if(!middlenameTextfield.getText().trim().equals("")){
+			
+		}else{
+			messageBox.setStyle("-fx-background-color:#e74c3c");
+			messageLabel.setText("There was a problem with your submission.");
+			messageStudentName.setVisible(true);
+		}
+		
 		
 	}
 

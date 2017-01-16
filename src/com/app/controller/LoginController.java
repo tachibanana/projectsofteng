@@ -23,6 +23,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
@@ -51,6 +52,8 @@ public class LoginController implements Initializable, ControllerListener{
 	private VBox messagePanel;
 	@FXML
 	private Label messageLabel;
+	@FXML
+	private ComboBox<String> accessType;
 	private static DBManager manager;
 	private static LoginController loginController;
 	private static Attempt attempt;
@@ -61,7 +64,10 @@ public class LoginController implements Initializable, ControllerListener{
 		try{
 			loadingPane.setVisible(false);
 			imageView.setVisible(false);
-		
+			
+			accessType.getItems().addAll(new String[] {"ADMIN" , "STUDENT"});
+			accessType.getSelectionModel().select(0);
+			
 			Image image = new Image(new FileInputStream(ResourceLoader.dir() + "/imp/img/icon/loading.gif"));
 			imageView.setImage(image);
 			

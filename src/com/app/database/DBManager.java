@@ -9,6 +9,7 @@ import java.util.List;
 
 import com.app.model.user.Admin;
 import com.app.model.user.Course;
+import com.app.model.user.Person;
 import com.app.model.user.Student;
 import com.app.model.user.User;
 import com.app.model.user.Year;
@@ -157,6 +158,43 @@ public class DBManager {
 		}catch(Exception e){
 			e.printStackTrace();
 			return null;
+		}
+	}
+	
+	public void savePerson(Person person , String studentNumber){
+		try{
+			String sql = "INSERT INTO tblperson(person_id , last_name , first_name,"
+					+ "middle_name , student_info) VALUES(? , ? , ? ,?, ?)";
+			
+			PreparedStatement pst = conn.prepareStatement(sql);
+			pst.setString(1, "PID20170002");
+			pst.setString(2, person.getLastName());
+			pst.setString(3, person.getFirstName());
+			pst.setString(4, person.getMiddleName());
+			pst.setString(5, studentNumber);
+			
+			pst.executeUpdate();
+			
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+	}
+	
+	public void saveStudent(Student student){
+		try{
+			String sql = "INSERT INTO tblstudent(student_number , email , course_id,"
+					+ "year_id) VALUES(? , ? , ? ,?)";
+			
+			PreparedStatement pst = conn.prepareStatement(sql);
+			pst.setInt(1, student.getStudentNumber());
+			pst.setString(2, student.getEmail());
+			pst.setString(3,student.getCourse());
+			pst.setString(4, student.getYear());
+			
+			pst.executeUpdate();
+			
+		}catch(Exception e){
+			e.printStackTrace();
 		}
 	}
 }

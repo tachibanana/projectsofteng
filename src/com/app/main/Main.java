@@ -74,9 +74,6 @@ public class Main extends Application implements LoginListener{
 			return false;
 		}
 	}
-	public static String test(com.app.model.user.User user){
-		return user.getUsername();
-	}
 	
 	public static void main(String[] args){
 		launch(args);

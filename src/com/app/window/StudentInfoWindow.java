@@ -19,8 +19,8 @@ public abstract class StudentInfoWindow {
 			Stage stage = new Stage();
 			stage.setTitle("Student Info");
 			stage.initModality(Modality.APPLICATION_MODAL);
-			stage.setMinWidth(870);
-			stage.setMinHeight(400);
+			stage.setMinWidth(810);
+			stage.setMinHeight(360);
 			
 			ControllerEvent event = new ControllerEvent();
 			event.setManager(manager);
@@ -29,7 +29,7 @@ public abstract class StudentInfoWindow {
 			Initializer.callControllerListener(event);
 			
 			Parent root = FXMLLoader.load(ResourceLoader.source("fxml/student_info.fxml"));
-			Scene scene = new Scene(root , 880 , 400);
+			Scene scene = new Scene(root , 810 , 320);
 			scene.getStylesheets().add(ResourceLoader.source("css/student_info.css").toString());
 			
 			stage.setScene(scene);
