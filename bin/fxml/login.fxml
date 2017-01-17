@@ -39,7 +39,7 @@
                   </StackPane>
                   <VBox alignment="TOP_CENTER" prefHeight="154.0" prefWidth="514.0" spacing="10.0">
                      <children>
-                        <ComboBox fx:id="accessType" prefHeight="29.0" prefWidth="254.0" />
+                        <ComboBox fx:id="accessTypeOption" prefHeight="23.0" prefWidth="254.0" />
                         <TextField fx:id="usernameField" onKeyPressed="#handleKeyEvent" onKeyReleased="#handleKeyEvent" prefHeight="30.0" prefWidth="443.0" promptText="Username" />
                         <PasswordField fx:id="passwordField" onAction="#handleOnAction" onKeyPressed="#handleKeyEvent" onKeyReleased="#handleKeyEvent" prefHeight="30.0" prefWidth="262.0" promptText="Password" />
                         <Button fx:id="buttonLogin" mnemonicParsing="false" onAction="#handleOnAction" prefHeight="36.0" prefWidth="97.0" text="Login" />

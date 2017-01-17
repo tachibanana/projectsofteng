@@ -53,7 +53,7 @@ public class LoginController implements Initializable, ControllerListener{
 	@FXML
 	private Label messageLabel;
 	@FXML
-	private ComboBox<String> accessType;
+	private ComboBox<String> accessTypeOption;
 	private static DBManager manager;
 	private static LoginController loginController;
 	private static Attempt attempt;
@@ -65,14 +65,20 @@ public class LoginController implements Initializable, ControllerListener{
 			loadingPane.setVisible(false);
 			imageView.setVisible(false);
 			
-			accessType.getItems().addAll(new String[] {"ADMIN" , "STUDENT"});
-			accessType.getSelectionModel().select(0);
+			accessTypeOption.getItems().addAll(new String[] {"ADMIN" , "STUDENT"});
+			accessTypeOption.getSelectionModel().select(0);
 			
 			Image image = new Image(new FileInputStream(ResourceLoader.dir() + "/imp/img/icon/loading.gif"));
 			imageView.setImage(image);
 			
 			buttonLogin.setDisable(true);
 			attempt = Logs.getLoginAttempt();
+			
+			usernameField.focusedProperty().addListener((ob , oldProperty , newProperty)->{
+				if(newProperty){
+					usernameField.setStyle("-fx-border-width:0;");
+				}
+			});
 			
 			if(attempt.getNumberOfAttempt() >= 3){
 				usernameField.setDisable(true);
@@ -118,6 +124,13 @@ public class LoginController implements Initializable, ControllerListener{
 			}else if(attempt.getNumberOfAttempt() == 3){
 				Logs.setLoginAttempt(attempt);
 				playTransition(2);
+			}else if(accessTypeOption.getSelectionModel().getSelectedIndex() == 1 && 
+					!usernameField.getText().matches("[0-9a-zA-Z]{3,20}+[(\\.)_]"
+					+ "[0-9a-zA-Z]{3,20}+@[a-zA-Z]+\\.com")){
+				
+					Logs.setLoginAttempt(attempt);
+				
+					playTransition(3);
 			}else{
 				Logs.setLoginAttempt(attempt);
 				playTransition(1);
@@ -183,7 +196,6 @@ public class LoginController implements Initializable, ControllerListener{
 					buttonLogin.setDisable(false);
 					
 					if(flag == 0){
-						//manager.closeConnection();
 						stage.close();
 					
 					}else if(flag == 1){
@@ -198,6 +210,13 @@ public class LoginController implements Initializable, ControllerListener{
 						
 						messagePanel.setStyle("-fx-background-color:#d35400");
 						messageLabel.setText("Too many failed login attempts. Please wait and try again.");
+						addFadeAnimation(messagePanel);
+					}else if(flag == 3){
+					
+						usernameField.setStyle("-fx-border-color: #e74c3c;-fx-border-width: 2;");
+						
+						messagePanel.setStyle("-fx-background-color:#e74c3c");
+						messageLabel.setText("Please enter a valid email (e.g. dummy.fake@account.com");
 						addFadeAnimation(messagePanel);
 					}
 					

@@ -11,6 +11,7 @@ import com.app.util.Config;
 import com.app.window.ConfigWindow;
 import com.app.window.LoginWindow;
 import com.app.window.PrimaryWindow;
+import com.app.window.SubjectOptionWindow;
 
 import javafx.application.Application;
 import javafx.stage.Stage;
@@ -32,8 +33,12 @@ public class Main extends Application implements LoginListener{
 			while(!isLoginSuccess){
 				LoginWindow.display(manager);
 			}
-
-			PrimaryWindow.display(primaryStage, manager, user);
+			
+			//privillages
+			if(user.getAccessType().equals("ADMIN"))
+				PrimaryWindow.display(primaryStage, manager, user);
+			else if(user.getAccessType().equals("STUDENT"))
+				SubjectOptionWindow.display();
 						
 		}catch(Exception e){
 			e.printStackTrace();

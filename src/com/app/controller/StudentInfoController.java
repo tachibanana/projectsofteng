@@ -180,7 +180,7 @@ public class StudentInfoController implements ControllerListener , Initializable
 				//not empty
 				if(emailTextfield.getText()
 						.matches("[0-9a-zA-Z]{3,20}+[(\\.)_]"
-								+ "[0-9a-zA-Z]{3,20}+@[a-zA-Z]+\\.[a-zA-Z0-9]{3,20}+")){
+								+ "[0-9a-zA-Z]{3,20}+@[a-zA-Z]+\\.com")){
 					//valid input
 					emailTextfield.setStyle("-fx-border-color:#2ecc71;-fx-border-width: 2;");
 				}else{
