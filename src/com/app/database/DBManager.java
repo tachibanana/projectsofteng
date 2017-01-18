@@ -7,13 +7,13 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.app.model.user.Admin;
-import com.app.model.user.Course;
-import com.app.model.user.Person;
-import com.app.model.user.Student;
-import com.app.model.user.User;
-import com.app.model.user.Year;
-
+import com.app.model.Admin;
+import com.app.model.Course;
+import com.app.model.Person;
+import com.app.model.Student;
+import com.app.model.Year;
+import com.app.model.hibernate.User;
+@Deprecated
 public class DBManager {
 	
 	private DatabaseConnection dbconn;

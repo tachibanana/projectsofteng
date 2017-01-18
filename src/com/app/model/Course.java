@@ -1,4 +1,4 @@
-package com.app.model.user;
+package com.app.model;
 
 import java.util.List;
 

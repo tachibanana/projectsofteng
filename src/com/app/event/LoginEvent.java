@@ -1,6 +1,6 @@
 package com.app.event;
 
-import com.app.model.user.User;
+import com.app.model.hibernate.User;
 
 public class LoginEvent {
 	

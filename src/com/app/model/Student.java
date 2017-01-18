@@ -1,5 +1,5 @@
-package com.app.model.user;
-
+package com.app.model;
+@Deprecated
 public class Student extends Person{
 	
 	private String email;

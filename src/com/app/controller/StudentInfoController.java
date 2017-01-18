@@ -7,9 +7,9 @@ import java.util.ResourceBundle;
 import com.app.database.DBManager;
 import com.app.event.ControllerEvent;
 import com.app.listener.ControllerListener;
-import com.app.model.user.Course;
-import com.app.model.user.Student;
-import com.app.model.user.Year;
+import com.app.model.Course;
+import com.app.model.Student;
+import com.app.model.Year;
 import com.app.util.PasswordGenerator;
 
 import javafx.beans.value.ChangeListener;

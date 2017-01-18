@@ -1,10 +1,20 @@
-package com.app.model.user;
+package com.app.model.hibernate;
 
+import javax.persistence.Column;
+import javax.persistence.Embeddable;
+@Embeddable
 public abstract class User {
 	
+	@Column(name="username")
 	private String username;
+	
+	@Column(name="password")
 	private String password;
+	
+	@Column(name="access_type")
 	private String accessType;
+	
+	@Column(name="is_activated")
 	private boolean isActivate;
 	
 	public String getUsername() {
@@ -38,7 +48,4 @@ public abstract class User {
 	public void setActivate(boolean isActivate) {
 		this.isActivate = isActivate;
 	}
-	
-	
-
 }

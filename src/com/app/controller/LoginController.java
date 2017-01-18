@@ -11,7 +11,7 @@ import com.app.event.LoginEvent;
 import com.app.listener.ControllerListener;
 import com.app.main.Main;
 import com.app.model.Attempt;
-import com.app.model.user.User;
+import com.app.model.hibernate.User;
 import com.app.util.Initializer;
 import com.app.util.Logs;
 import com.app.util.ResourceLoader;

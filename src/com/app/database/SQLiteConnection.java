@@ -2,7 +2,7 @@ package com.app.database;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
-
+@Deprecated
 public class SQLiteConnection extends DBUserLibrary implements DatabaseConnection{
 
 	public boolean isConnected = false;

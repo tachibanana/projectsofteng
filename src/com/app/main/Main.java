@@ -1,12 +1,15 @@
 package com.app.main;
 
+import com.app.dao.StudentDAOImpl;
 import com.app.database.DBManager;
 import com.app.database.DatabaseConnection;
 import com.app.database.MySQLConnection;
 import com.app.database.SQLiteConnection;
 import com.app.event.LoginEvent;
 import com.app.listener.LoginListener;
-import com.app.model.user.User;
+import com.app.model.hibernate.Course;
+import com.app.model.hibernate.Student;
+import com.app.model.hibernate.User;
 import com.app.util.Config;
 import com.app.window.ConfigWindow;
 import com.app.window.LoginWindow;
@@ -81,6 +84,12 @@ public class Main extends Application implements LoginListener{
 	}
 	
 	public static void main(String[] args){
+//		Course course = new Course();
+//		course.setCourseCode("BSIT");
+//		course.setCourseName("Blahnalg");
+//		Student user = new Student(1 , "Manuel","Rafael","Estrada","rafaelmanuel00@gmail.com", course);
+//		StudentDAOImpl testDAO = new StudentDAOImpl();
+//		testDAO.addUser(user);
 		launch(args);
 	}
 

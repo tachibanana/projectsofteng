@@ -1,4 +1,4 @@
-package com.app.model.user;
+package com.app.model;
 
 public class Admin extends Person{
 
