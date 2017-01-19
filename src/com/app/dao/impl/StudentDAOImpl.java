@@ -1,10 +1,11 @@
-package com.app.dao;
+package com.app.dao.impl;
 
 import java.util.List;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
+import com.app.dao.UserDAO;
 import com.app.model.hibernate.Student;
 import com.app.util.hibernate.HibernateUtil;
 
@@ -14,6 +15,10 @@ public class StudentDAOImpl implements UserDAO<Student>{
 	
 	public StudentDAOImpl(){
 		sessionFactory = HibernateUtil.getSessionFactory();
+	}
+	
+	public void setSessionFactory(SessionFactory sessionFactory) {
+		this.sessionFactory = sessionFactory;
 	}
 
 	@Override

@@ -4,9 +4,9 @@ import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 
 public abstract class HibernateUtil {
-	
-	public static SessionFactory sessionFactory;
-	
+
+	private static SessionFactory sessionFactory;
+
 	public static SessionFactory getSessionFactory(){
 			if(sessionFactory == null)
 				return new Configuration().configure().buildSessionFactory();
@@ -15,6 +15,6 @@ public abstract class HibernateUtil {
 
 	public static void closeSessionFactory(){
 		sessionFactory.close();
-		sessionFactory = null;	
+		sessionFactory = null;
 	}
 }

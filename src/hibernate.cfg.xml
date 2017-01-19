@@ -30,10 +30,11 @@
    	<property name="current_session_context_classs">thread</property>
    		
    	<!-- Drop and re-create the database schema on startup -->
-   	<property name="hbm2ddl.auto">create</property>
+   	<property name="hbm2ddl.auto">update</property>
    		
    	<mapping class="com.app.model.hibernate.Student"/>
-   	<mapping class="com.app.model.hibernate.Course"/>	
+   	<mapping class="com.app.model.hibernate.Course"/>
+   	<mapping class="com.app.model.hibernate.Id"/>	
    		
     </session-factory>
 </hibernate-configuration>

@@ -1,5 +1,6 @@
 package com.app.model.hibernate;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -30,7 +31,7 @@ public class Student extends User{
 	@Column(name="email_address")
 	private String email;
 	
-	@OneToOne
+	@OneToOne(cascade=CascadeType.PERSIST)
 	@JoinColumn(name="course_id")
 	private Course course;
 	

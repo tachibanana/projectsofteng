@@ -12,9 +12,9 @@ import javax.persistence.Table;
 public class Course {
 	
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
+	//@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name="course_id")
-	private int courseId;
+	private String courseId;
 	
 	@Column(name="course_code")
 	private String courseCode;
@@ -22,11 +22,11 @@ public class Course {
 	@Column(name="course_name")
 	private String courseName;
 
-	public int getCourseId() {
+	public String getCourseId() {
 		return courseId;
 	}
 
-	public void setCourseId(int courseId) {
+	public void setCourseId(String courseId) {
 		this.courseId = courseId;
 	}
 
