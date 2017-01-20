@@ -9,8 +9,8 @@ public abstract class HibernateUtil {
 
 	public static SessionFactory getSessionFactory(){
 			if(sessionFactory == null)
-				return new Configuration().configure().buildSessionFactory();
-			return null;
+				sessionFactory = new Configuration().configure().buildSessionFactory();
+			return sessionFactory;
 	}
 
 	public static void closeSessionFactory(){

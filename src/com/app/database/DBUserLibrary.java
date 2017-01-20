@@ -1,5 +1,5 @@
 package com.app.database;
-@Deprecated
+
 public class DBUserLibrary {
 	
 	private String url;

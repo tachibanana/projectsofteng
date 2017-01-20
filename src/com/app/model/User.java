@@ -1,22 +1,24 @@
-package com.app.model.hibernate;
+package com.app.model;
 
-import javax.persistence.Column;
-import javax.persistence.Embeddable;
-@Embeddable
-public abstract class User {
+public class User {
 	
-	@Column(name="username")
 	private String username;
-	
-	@Column(name="password")
 	private String password;
-	
-	@Column(name="access_type")
 	private String accessType;
-	
-	@Column(name="is_activated")
 	private boolean isActivate;
 	
+	public User(){
+		super();
+	}
+	
+	public User(String username, String password, String accessType, boolean isActivate) {
+		this();
+		this.username = username;
+		this.password = password;
+		this.accessType = accessType;
+		this.isActivate = isActivate;
+	}
+
 	public String getUsername() {
 		return username;
 	}

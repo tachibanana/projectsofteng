@@ -3,7 +3,7 @@ package com.app.database;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
-@Deprecated
+
 public class MySQLConnection extends DBUserLibrary implements DatabaseConnection{
 
 	private boolean isConnected = false;

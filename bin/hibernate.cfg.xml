@@ -31,10 +31,11 @@
    		
    	<!-- Drop and re-create the database schema on startup -->
    	<property name="hbm2ddl.auto">update</property>
-   		
+   	
    	<mapping class="com.app.model.hibernate.Student"/>
    	<mapping class="com.app.model.hibernate.Course"/>
-   	<mapping class="com.app.model.hibernate.Id"/>	
+   	<mapping class="com.app.model.hibernate.Id"/>
+
    		
     </session-factory>
 </hibernate-configuration>

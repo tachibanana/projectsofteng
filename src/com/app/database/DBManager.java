@@ -11,9 +11,9 @@ import com.app.model.Admin;
 import com.app.model.Course;
 import com.app.model.Person;
 import com.app.model.Student;
+import com.app.model.User;
 import com.app.model.Year;
-import com.app.model.hibernate.User;
-@Deprecated
+
 public class DBManager {
 	
 	private DatabaseConnection dbconn;

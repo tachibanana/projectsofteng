@@ -1,8 +1,5 @@
 package com.app.model;
 
-import com.app.model.hibernate.User;
-
-@Deprecated
 public abstract class Person extends User{
 	
 	private String lastName;

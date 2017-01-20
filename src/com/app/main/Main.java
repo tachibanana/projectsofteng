@@ -6,7 +6,7 @@ import com.app.database.MySQLConnection;
 import com.app.database.SQLiteConnection;
 import com.app.event.LoginEvent;
 import com.app.listener.LoginListener;
-import com.app.model.hibernate.User;
+import com.app.model.User;
 import com.app.util.Config;
 import com.app.window.ConfigWindow;
 import com.app.window.LoginWindow;

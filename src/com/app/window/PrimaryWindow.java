@@ -5,7 +5,7 @@ import java.io.IOException;
 import com.app.controller.PrimaryController;
 import com.app.database.DBManager;
 import com.app.event.ControllerEvent;
-import com.app.model.hibernate.User;
+import com.app.model.User;
 import com.app.util.Initializer;
 import com.app.util.ResourceLoader;
 

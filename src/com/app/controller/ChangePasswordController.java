@@ -8,7 +8,7 @@ import com.app.database.DBManager;
 import com.app.event.ControllerEvent;
 import com.app.event.FocusEvent;
 import com.app.listener.ControllerListener;
-import com.app.model.hibernate.User;
+import com.app.model.User;
 import com.app.util.ResourceLoader;
 
 import javafx.application.Platform;
