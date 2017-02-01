@@ -1,6 +1,6 @@
 package com.app.database;
 
-public class DBUserLibrary {
+public class DBUserLibrary{
 	
 	private String url;
 	private String catalog;
@@ -8,8 +8,12 @@ public class DBUserLibrary {
 	private String password;
 	private String className;
 	
-	public DBUserLibrary(String url, String catalog, String user, String password, String className) {
+	public DBUserLibrary(){
 		super();
+	}
+	
+	public DBUserLibrary(String url, String catalog, String user, String password, String className) {
+		this();
 		this.url = url;
 		this.catalog = catalog;
 		this.user = user;
@@ -56,7 +60,10 @@ public class DBUserLibrary {
 	public void setClassName(String className) {
 		this.className = className;
 	}
-	
-	
 
+	@Override
+	public String toString() {
+		return "DBUserLibrary [url=" + url + ", catalog=" + catalog + ", user=" + user + ", password=" + password
+				+ ", className=" + className + "]";
+	}
 }

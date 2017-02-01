@@ -1,41 +1,38 @@
-<!--
-  ~ Hibernate, Relational Persistence for Idiomatic Java
-  ~
-  ~ License: GNU Lesser General Public License (LGPL), version 2.1 or later.
-  ~ See the lgpl.txt file in the root directory or <http://www.gnu.org/licenses/lgpl-2.1.html>.
-  -->
+<!-- ~ Hibernate, Relational Persistence for Idiomatic Java ~ ~ License: 
+	GNU Lesser General Public License (LGPL), version 2.1 or later. ~ See the 
+	lgpl.txt file in the root directory or <http://www.gnu.org/licenses/lgpl-2.1.html>. -->
 <!DOCTYPE hibernate-configuration PUBLIC
         "-//Hibernate/Hibernate Configuration DTD 3.0//EN"
         "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
 
 <hibernate-configuration>
-    <session-factory>
+	<session-factory>
 
-    <!-- JDBC Database connection settings -->
-   	<property name="connection.driver_class">com.mysql.jdbc.Driver</property>
-   	<property name="connection.url">jdbc:mysql://localhost:3306/dbsofteng</property>
-   	<property name="connection.username">root</property>
-   	<property name="connection.password"></property>
-   		
-   	<!-- JDBC connection pool settings ... using built-in test tool -->
-   	<property name="connection.pool_size">3</property>
-   		
-   	<!-- Select our SQL dialect -->
-   	<property name="dialect">org.hibernate.dialect.MySQLDialect</property>
-   		
-   	<!-- Echo the SQL to stdout -->
-   	<property name="show_sql">true</property>
-   		
-   	<!-- Set the current session context -->
-   	<property name="current_session_context_classs">thread</property>
-   		
-   	<!-- Drop and re-create the database schema on startup -->
-   	<property name="hbm2ddl.auto">update</property>
-   	
-   	<mapping class="com.app.model.hibernate.Student"/>
-   	<mapping class="com.app.model.hibernate.Course"/>
-   	<mapping class="com.app.model.hibernate.Id"/>
+		<!-- JDBC Database connection settings -->
+		<property name="connection.driver_class">com.mysql.jdbc.Driver</property>
+		<property name="connection.url">jdbc:mysql://localhost:3306/dbsofteng</property>
+		<property name="connection.username">root</property>
+		<property name="connection.password"></property>
 
-   		
-    </session-factory>
+		<!-- JDBC connection pool settings ... using built-in test tool -->
+		<property name="connection.pool_size">3</property>
+
+		<!-- Select our SQL dialect -->
+		<property name="dialect">org.hibernate.dialect.MySQLDialect</property>
+
+		<!-- Echo the SQL to stdout -->
+		<property name="show_sql">true</property>
+
+		<!-- Set the current session context -->
+		<property name="current_session_context_classs">thread</property>
+
+		<!-- Drop and re-create the database schema on startup -->
+		<property name="hbm2ddl.auto">update</property>
+
+		<mapping class="com.app.model.hibernate.Student" />
+		<mapping class="com.app.model.hibernate.Course" />
+		<mapping class="com.app.model.hibernate.Id" />
+
+
+	</session-factory>
 </hibernate-configuration>

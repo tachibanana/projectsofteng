@@ -1,23 +1,33 @@
 package com.app.window;
 
+import com.app.controller.StudentInfoController;
+import com.app.database.DBManager;
+import com.app.event.ControllerEvent;
+import com.app.util.Initializer;
+import com.app.util.ResourceLoader;
+
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Label;
-import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 public abstract class SubjectOptionWindow {
 	
-	public static void display(){
+	public static void display(DBManager manager){
 		try{
 			Stage stage = new Stage();
 			stage.setTitle("Subject Option Window");
 			stage.setMaximized(true);
 			
-			VBox box = new VBox();
-			Label label = new Label("Subject Option Window");
-			box.getChildren().add(label);
+			ControllerEvent event = new ControllerEvent();
+			event.setManager(manager);
 			
-			Scene scene = new Scene(box , 400 , 400);
+			Initializer.addControllerListener(new StudentInfoController());
+			Initializer.callControllerListener(event);
+			
+			Parent root = (Parent) FXMLLoader.load(ResourceLoader.source("fxml/student_subject.fxml"));
+			
+			Scene scene = new Scene(root , 800 , 800);
 			stage.setScene(scene);
 			stage.show();
 			

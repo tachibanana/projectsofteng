@@ -11,6 +11,7 @@ import com.app.model.Admin;
 import com.app.model.Course;
 import com.app.model.Person;
 import com.app.model.Student;
+import com.app.model.Subject;
 import com.app.model.User;
 import com.app.model.Year;
 
@@ -255,5 +256,35 @@ public class DBManager {
 				year = y;
 		}
 		return year;
+	}
+	
+	public List<Subject> getAllSubjectByYearAndSem(int year, int semester){
+		try{
+			List<Subject> listOfSubject = new ArrayList<Subject>();
+			String sql = "SELECT * FROM tbl_subject WHERE year = ? AND semester = ?";
+			PreparedStatement pst = conn.prepareStatement(sql);
+			pst.setInt(1, year);
+			pst.setInt(2, semester);
+			
+			ResultSet result = pst.executeQuery();
+			
+			while(result.next()){
+				Subject subject = new Subject();
+				subject.setCategory(result.getString("category"));
+				subject.setCourseId(result.getString("course_id"));
+				subject.setDescription(result.getString("subject_desc"));
+				subject.setId(result.getString("subject_id"));
+				subject.setName(result.getString("subject_name"));
+				subject.setPrerequisite(result.getString("prerequisite"));
+				subject.setSemester(result.getInt("semester"));
+				subject.setUnit(result.getInt("unit"));
+				subject.setYear(result.getInt("year"));
+				listOfSubject.add(subject);
+			}
+			return listOfSubject;
+		}catch(Exception e){
+			e.printStackTrace();
+			return null;
+		}
 	}
 }

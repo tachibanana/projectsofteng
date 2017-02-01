@@ -1,6 +1,10 @@
 package com.app.main;
 
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+
 import com.app.database.DBManager;
+import com.app.database.DBUserLibrary;
 import com.app.database.DatabaseConnection;
 import com.app.database.MySQLConnection;
 import com.app.database.SQLiteConnection;
@@ -34,11 +38,12 @@ public class Main extends Application implements LoginListener{
 				LoginWindow.display(manager);
 			}
 			
-			//privillages
+			//admin
 			if(user.getAccessType().equals("ADMIN"))
 				PrimaryWindow.display(primaryStage, manager, user);
+			//student
 			else if(user.getAccessType().equals("STUDENT"))
-				SubjectOptionWindow.display();
+				SubjectOptionWindow.display(manager);
 						
 		}catch(Exception e){
 			e.printStackTrace();
@@ -62,6 +67,7 @@ public class Main extends Application implements LoginListener{
 			if(Config.getConnectionConfig() != null){
 				if(Config.getConnectionConfig().getClassName().equals("com.mysql.jdbc.Driver"))
 					 config = new MySQLConnection(Config.getConnectionConfig());
+				
 				else if(Config.getConnectionConfig().getClassName().equals("org.sqlite.JDBC"))
 					 config = new SQLiteConnection(Config.getConnectionConfig());
 				
@@ -81,7 +87,15 @@ public class Main extends Application implements LoginListener{
 	}
 	
 	public static void main(String[] args){
+		
 		launch(args);
+//		ApplicationContext context = new ClassPathXmlApplicationContext("jdbc_spring_config.xml");
+//		DBUserLibrary user = context.getBean("dbUserLibrary" , DBUserLibrary.class);
+//		DBManager manager = new DBManager();
+//		manager.setDatabaseConnection(new MySQLConnection(user));
+//		manager.openConnection();
+//		System.out.println(manager.getAllSubjectByYearAndSem(1, 1));
+//		System.out.println(user.toString());
 	}
 
 }

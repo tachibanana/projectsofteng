@@ -8,9 +8,7 @@ public class Course {
 	private String courseCode;
 	private String courseDefinition;
 	private List<Year> listOfYear;
-	
-	
-	
+
 	public Course(String courseId, String courseCode, String courseDefinition,
 			List<Year> listOfYear) {
 		super();
@@ -50,11 +48,5 @@ public class Course {
 	
 	public void setListOfYear(List<Year> listOfYear) {
 		this.listOfYear = listOfYear;
-	}
-	
-	
-
-	
-	
-	
+	}	
 }
