@@ -18,6 +18,8 @@ public abstract class SubjectOptionWindow {
 			Stage stage = new Stage();
 			stage.setTitle("Subject Option Window");
 			stage.setMaximized(true);
+			stage.setMinWidth(1200);
+			stage.setMinHeight(800);
 			
 			ControllerEvent event = new ControllerEvent();
 			event.setManager(manager);

@@ -12,12 +12,15 @@ import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Accordion;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TitledPane;
 import javafx.scene.control.cell.CheckBoxTableCell;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.VBox;
@@ -32,6 +35,10 @@ public class StudentSubjectController implements ControllerListener, Initializab
 	private ComboBox<String> yearCombo;
 	@FXML
 	private ComboBox<String> semesterCombo;
+	@FXML
+	private Accordion accordionCourseList;
+	@FXML
+	private TitledPane bsitTitledPane;
 	
 	private static DBManager manager;
     private static final ObservableList<Subject> data = FXCollections.observableArrayList();
@@ -53,6 +60,7 @@ public class StudentSubjectController implements ControllerListener, Initializab
 		yearCombo.getSelectionModel().select(1);
 		semesterCombo.getSelectionModel().select(0);
 		
+		accordionCourseList.setExpandedPane(bsitTitledPane);
 		TableColumn<Subject,Boolean> c2 = new TableColumn<Subject,Boolean>("#");
 		c2.setCellValueFactory(new PropertyValueFactory<Subject,Boolean>("check"));
 		c2.setCellFactory(col -> {
@@ -69,6 +77,9 @@ public class StudentSubjectController implements ControllerListener, Initializab
 		
 		TableColumn<Subject, String> nameColumn = new TableColumn<>("Subject");
 		nameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
+		
+		TableColumn<Subject, String> cIColumn = new TableColumn<>("Course ID");
+		cIColumn.setCellValueFactory(new PropertyValueFactory<>("courseId"));
 		
 		TableColumn<Subject, String> descColumn = new TableColumn<>("Description");
 		descColumn.setCellValueFactory(new PropertyValueFactory<>("description"));
@@ -87,7 +98,7 @@ public class StudentSubjectController implements ControllerListener, Initializab
 		
 		tableView.setItems(data);
 		tableView.setEditable(true);
-		tableView.getColumns().addAll(c2, nameColumn, descColumn, unitColumn, semColumn, prerequisiteColumn);
+		tableView.getColumns().addAll(c2, nameColumn, descColumn, unitColumn, semColumn, prerequisiteColumn, cIColumn);
 		
 		Button button = new Button();
 		button.setOnAction(event ->{
@@ -115,6 +126,11 @@ public class StudentSubjectController implements ControllerListener, Initializab
             return cell ;
         });
 		return column;
+	}
+	
+	@FXML
+	public void handleAddonAction(ActionEvent event){
+		
 	}
 
 }

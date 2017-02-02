@@ -311,4 +311,35 @@ public class DBManager {
 			return null;
 		}
 	}
+	
+	public List<Subject> getAllSubjectByYearSemeterAndCourseId(int year, int semester, String courseId){
+		try{
+			List<Subject> listOfSubject = new ArrayList<Subject>();
+			String sql = "SELECT * FROM tbl_subject WHERE year = ? AND semester = ? AND course_id = ?";
+			PreparedStatement pst = conn.prepareStatement(sql);
+			pst.setInt(1, year);
+			pst.setInt(2, semester);
+			pst.setString(3, courseId);
+			
+			ResultSet result = pst.executeQuery();
+			
+			while(result.next()){
+				Subject subject = new Subject();
+				subject.setCategory(result.getString("category"));
+				subject.setCourseId(result.getString("course_id"));
+				subject.setDescription(result.getString("subject_desc"));
+				subject.setId(result.getString("subject_id"));
+				subject.setName(result.getString("subject_name"));
+				subject.setPrerequisite(result.getString("prerequisite"));
+				subject.setSemester(result.getInt("semester"));
+				subject.setUnit(result.getInt("unit"));
+				subject.setYear(result.getInt("year"));
+				listOfSubject.add(subject);
+			}
+			return listOfSubject;
+		}catch(Exception e){
+			e.printStackTrace();
+			return null;
+		}
+	}
 }

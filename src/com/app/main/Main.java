@@ -9,6 +9,7 @@ import com.app.listener.LoginListener;
 import com.app.model.User;
 import com.app.util.Config;
 import com.app.window.ConfigWindow;
+import com.app.window.FacultyMasterListWindow;
 import com.app.window.LoginWindow;
 import com.app.window.PrimaryWindow;
 import com.app.window.SubjectOptionWindow;
@@ -41,8 +42,7 @@ public class Main extends Application implements LoginListener{
 			else if(user.getAccessType().equals("STUDENT"))
 				SubjectOptionWindow.display(manager);
 			else if(user.getAccessType().equals("EMPLOYEE"))
-				//SubjectOptionWindow.display(manager);
-				System.out.println("awesome");		
+				FacultyMasterListWindow.display(manager);
 						
 		}catch(Exception e){
 			e.printStackTrace();

@@ -1,9 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Accordion?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.TitledPane?>
@@ -11,24 +15,38 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.FlowPane?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="558.0" prefWidth="862.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.app.controller.StudentSubjectController">
    <center>
-      <FlowPane alignment="TOP_CENTER" prefHeight="400.0" prefWidth="661.0" BorderPane.alignment="CENTER">
+      <FlowPane alignment="TOP_CENTER" prefHeight="400.0" prefWidth="661.0" style="-fx-background-color: #95a5a6;" BorderPane.alignment="CENTER">
          <children>
-            <VBox fx:id="boxOfTreasure" prefHeight="516.0" prefWidth="722.0">
+            <VBox fx:id="boxOfTreasure" alignment="CENTER" prefHeight="600.0" prefWidth="900.0" style="-fx-background-color: #ecf0f1;">
                <children>
                   <AnchorPane prefHeight="518.0" prefWidth="722.0">
                      <children>
                         <TableView fx:id="tableView" layoutX="6.0" layoutY="77.0" prefHeight="348.0" prefWidth="710.0" />
-                        <Button layoutX="592.0" layoutY="436.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="123.0" text="Add" />
+                        <Button layoutX="592.0" layoutY="436.0" mnemonicParsing="false" onAction="#handleAddonAction" prefHeight="32.0" prefWidth="123.0" text="Add" />
                         <TextField layoutX="343.0" layoutY="43.0" prefHeight="25.0" prefWidth="310.0" />
                         <Button layoutX="663.0" layoutY="43.0" mnemonicParsing="false" text="Search" />
                         <Label layoutX="6.0" layoutY="47.0" text="Year : " />
                         <ComboBox fx:id="yearCombo" layoutX="47.0" layoutY="43.0" prefHeight="25.0" prefWidth="96.0" />
                         <Label layoutX="163.0" layoutY="47.0" text="Semester :" />
                         <ComboBox fx:id="semesterCombo" layoutX="232.0" layoutY="43.0" prefHeight="25.0" prefWidth="96.0" />
+                        <Label layoutX="67.0" layoutY="-6.0" prefHeight="27.0" prefWidth="399.0" style="-fx-font-weight: bold;" text="Bachelor of Science in Information Technology" textFill="#34495e">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </Label>
+                        <Label layoutY="-12.0" prefHeight="36.0" prefWidth="76.0" text="Course :">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </Label>
                      </children>
+                     <VBox.margin>
+                        <Insets left="90.0" />
+                     </VBox.margin>
                   </AnchorPane>
                </children>
             </VBox>
@@ -36,9 +54,9 @@
       </FlowPane>
    </center>
    <left>
-      <Accordion BorderPane.alignment="CENTER">
+      <Accordion fx:id="accordionCourseList" prefHeight="444.0" prefWidth="202.0" style="-fx-background-color: #95a5a6;" BorderPane.alignment="CENTER">
         <panes>
-          <TitledPane animated="false" text="BSIT">
+          <TitledPane fx:id="bsitTitledPane" animated="false" text="BSIT">
             <content>
               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
@@ -65,6 +83,40 @@
             </content>
           </TitledPane>
         </panes>
+         <BorderPane.margin>
+            <Insets />
+         </BorderPane.margin>
       </Accordion>
    </left>
+   <top>
+      <VBox prefHeight="69.0" prefWidth="862.0" style="-fx-background-color: #bdc3c7;" BorderPane.alignment="CENTER">
+         <children>
+            <MenuBar>
+              <menus>
+                <Menu mnemonicParsing="false" text="File">
+                  <items>
+                    <MenuItem mnemonicParsing="false" text="Close" />
+                  </items>
+                </Menu>
+                <Menu mnemonicParsing="false" text="Edit">
+                  <items>
+                    <MenuItem mnemonicParsing="false" text="Delete" />
+                  </items>
+                </Menu>
+                <Menu mnemonicParsing="false" text="Help">
+                  <items>
+                    <MenuItem mnemonicParsing="false" text="About" />
+                  </items>
+                </Menu>
+              </menus>
+            </MenuBar>
+         </children>
+      </VBox>
+   </top>
+   <bottom>
+      <VBox prefHeight="30.0" prefWidth="862.0" style="-fx-background-color: #f39c12;" BorderPane.alignment="CENTER" />
+   </bottom>
+   <right>
+      <VBox prefHeight="429.0" prefWidth="132.0" style="-fx-background-color: #95a5a6;" BorderPane.alignment="CENTER" />
+   </right>
 </BorderPane>
