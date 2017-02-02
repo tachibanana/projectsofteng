@@ -13,6 +13,7 @@ import com.app.model.Employee;
 import com.app.model.Person;
 import com.app.model.Student;
 import com.app.model.Subject;
+import com.app.model.Transaction;
 import com.app.model.User;
 import com.app.model.Year;
 
@@ -71,6 +72,7 @@ public class DBManager {
 			ResultSet result = pst.executeQuery();
 			while(result.next()){
 				User user = null;
+				String id = result.getString("user_id");
 				String username = result.getString("username");
 				String password = result.getString("password");
 				String accessType = result.getString("access_type");
@@ -100,6 +102,7 @@ public class DBManager {
 					user.setActivate(isActivate);
 				}
 				
+				user.setId(id);
 				listOfUser.add(user);
 			}
 			return listOfUser;
@@ -337,6 +340,105 @@ public class DBManager {
 				listOfSubject.add(subject);
 			}
 			return listOfSubject;
+		}catch(Exception e){
+			e.printStackTrace();
+			return null;
+		}
+	}
+	
+	public void addTransaction(Transaction transaction){
+		try{
+			String sql = "INSERT INTO tbl_transaction(student_number, subject_id, status) VALUES(?,?,?)";
+			PreparedStatement pst = conn.prepareStatement(sql);
+			pst.setInt(1,(int) transaction.getUserId());
+			pst.setString(2, transaction.getSubjectId());
+			pst.setString(3, transaction.getStatus());
+			pst.executeUpdate();
+			
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+	}
+	
+	public int getStudentNumberByPerson(String personId){
+		try{
+			String id = "";
+			String sql = "SELECT student_info FROM tblperson WHERE person_id = ? LIMIT 1";
+			PreparedStatement pst = conn.prepareStatement(sql);
+			pst.setString(1, personId);
+			
+			ResultSet rs = pst.executeQuery();
+			if(rs.next()){
+				id = rs.getString("student_info");
+			}
+			
+			return Integer.parseInt(id);
+			
+		}catch(Exception e){
+			e.printStackTrace();
+			return 0;
+		}
+	}
+	
+	public String getPersonIdByUser(String userId){
+		try{
+			String id ="";
+			String sql = "SELECT personal_info FROM tbluser WHERE user_id = ? LIMIT 1";
+			PreparedStatement pst = conn.prepareStatement(sql);
+			pst.setString(1, userId);
+			
+			ResultSet rs = pst.executeQuery();
+			if(rs.next()){
+				id = rs.getString("personal_info");
+			}
+			
+			return id;
+			
+		}catch(Exception e){
+			e.printStackTrace();
+			return null;
+		}
+	}
+	
+	public Student getStudentById(int id){
+		try{
+			Student student = null;
+			String sql = "SELECT * FROM tblstudent WHERE student_number = ? LIMIT 1";
+			PreparedStatement pst = conn.prepareStatement(sql);
+			pst.setInt(1, id);
+			
+			ResultSet rs = pst.executeQuery();
+			if(rs.next()){
+				student = new Student();
+				student.setEmail(rs.getString("email"));
+				student.setStudentNumber(rs.getInt("student_number"));
+				student.setCourse(rs.getString("course_id"));
+				student.setYear(rs.getString("year_id"));
+			}
+			
+			return student;
+			
+		}catch(Exception e){
+			e.printStackTrace();
+			return null;
+		}
+	}
+	
+	public List<Transaction> getAllTransactionBySubjectId(String subjectId){
+		try{
+			List<Transaction> list = new ArrayList<Transaction>();
+			String sql= "SELECT * FROM tbl_transaction WHERE subject_id = ?";
+			PreparedStatement pst = conn.prepareStatement(sql);
+			pst.setString(1, subjectId);
+			ResultSet rs = pst.executeQuery();
+			while(rs.next()){
+				Transaction t = new Transaction();
+				t.setSubjectId(rs.getString("subject_id"));
+				t.setUserId(rs.getInt("student_number"));
+				t.setStatus(rs.getString("status"));
+				list.add(t);
+			}
+			return list;
 		}catch(Exception e){
 			e.printStackTrace();
 			return null;

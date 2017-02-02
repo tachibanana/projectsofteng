@@ -3,6 +3,7 @@ package com.app.window;
 import com.app.controller.StudentSubjectController;
 import com.app.database.DBManager;
 import com.app.event.ControllerEvent;
+import com.app.model.User;
 import com.app.util.Initializer;
 import com.app.util.ResourceLoader;
 
@@ -13,7 +14,7 @@ import javafx.stage.Stage;
 
 public abstract class SubjectOptionWindow {
 	
-	public static void display(DBManager manager){
+	public static void display(DBManager manager, User user){
 		try{
 			Stage stage = new Stage();
 			stage.setTitle("Subject Option Window");
@@ -23,6 +24,7 @@ public abstract class SubjectOptionWindow {
 			
 			ControllerEvent event = new ControllerEvent();
 			event.setManager(manager);
+			event.setAttribute(user);
 			
 			Initializer.addControllerListener(new StudentSubjectController());
 			Initializer.callControllerListener(event);

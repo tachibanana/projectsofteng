@@ -40,7 +40,7 @@ public class Main extends Application implements LoginListener{
 				PrimaryWindow.display(primaryStage, manager, user);
 			//student
 			else if(user.getAccessType().equals("STUDENT"))
-				SubjectOptionWindow.display(manager);
+				SubjectOptionWindow.display(manager, user);
 			else if(user.getAccessType().equals("EMPLOYEE"))
 				FacultyMasterListWindow.display(manager);
 						

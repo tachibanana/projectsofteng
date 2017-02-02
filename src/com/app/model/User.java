@@ -2,6 +2,7 @@ package com.app.model;
 
 public class User {
 	
+	private String id;
 	private String username;
 	private String password;
 	private String accessType;
@@ -49,5 +50,13 @@ public class User {
 	
 	public void setActivate(boolean isActivate) {
 		this.isActivate = isActivate;
+	}
+
+	public String getId() {
+		return id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
 	}
 }

@@ -6,7 +6,9 @@ import java.util.ResourceBundle;
 import com.app.database.DBManager;
 import com.app.event.ControllerEvent;
 import com.app.listener.ControllerListener;
+import com.app.model.Student;
 import com.app.model.Subject;
+import com.app.model.Transaction;
 
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
@@ -42,10 +44,14 @@ public class StudentSubjectController implements ControllerListener, Initializab
 	
 	private static DBManager manager;
     private static final ObservableList<Subject> data = FXCollections.observableArrayList();
+    private static Student user;
 	
 	@Override
 	public void controllerLoad(ControllerEvent event) {
 		manager = (DBManager) event.getManager();
+		user = (Student) event.getAttribute();
+		user.setStudentNumber(manager.getStudentNumberByPerson(manager.getPersonIdByUser(user.getId())));
+		
 		for(Subject subject : manager.getAllSubjectByYearAndSem(1, 1)){
 			data.add(subject);
 		}
@@ -130,7 +136,17 @@ public class StudentSubjectController implements ControllerListener, Initializab
 	
 	@FXML
 	public void handleAddonAction(ActionEvent event){
-		
+		Transaction t = null;
+		for(Subject subject : tableView.getItems()){
+			if(subject.isCheck()){
+				t = new Transaction(user.getStudentNumber(), subject.getId(), "ONGOING");
+			
+				if(t != null)
+					manager.addTransaction(t);
+			}
+
+		}
+			
 	}
 
 }

@@ -39,7 +39,7 @@ public class MainWithSpringFramework extends Application implements LoginListene
 				PrimaryWindow.display(primaryStage, manager, user);
 			//student
 			else if(user.getAccessType().equals("STUDENT"))
-				SubjectOptionWindow.display(manager);
+				SubjectOptionWindow.display(manager, user);
 						
 		}catch(Exception e){
 			e.printStackTrace();
