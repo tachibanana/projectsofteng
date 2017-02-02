@@ -1,6 +1,6 @@
 package com.app.window;
 
-import com.app.controller.StudentInfoController;
+import com.app.controller.StudentSubjectController;
 import com.app.database.DBManager;
 import com.app.event.ControllerEvent;
 import com.app.util.Initializer;
@@ -22,7 +22,7 @@ public abstract class SubjectOptionWindow {
 			ControllerEvent event = new ControllerEvent();
 			event.setManager(manager);
 			
-			Initializer.addControllerListener(new StudentInfoController());
+			Initializer.addControllerListener(new StudentSubjectController());
 			Initializer.callControllerListener(event);
 			
 			Parent root = (Parent) FXMLLoader.load(ResourceLoader.source("fxml/student_subject.fxml"));

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.FlowPane?>
+<?import javafx.scene.layout.VBox?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="558.0" prefWidth="862.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.app.controller.StudentSubjectController">
+   <center>
+      <FlowPane alignment="TOP_CENTER" prefHeight="400.0" prefWidth="661.0" BorderPane.alignment="CENTER">
+         <children>
+            <VBox fx:id="boxOfTreasure" prefHeight="516.0" prefWidth="722.0">
+               <children>
+                  <AnchorPane prefHeight="518.0" prefWidth="722.0">
+                     <children>
+                        <TableView fx:id="tableView" layoutX="6.0" layoutY="77.0" prefHeight="348.0" prefWidth="710.0" />
+                        <Button layoutX="592.0" layoutY="436.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="123.0" text="Add" />
+                        <TextField layoutX="343.0" layoutY="43.0" prefHeight="25.0" prefWidth="310.0" />
+                        <Button layoutX="663.0" layoutY="43.0" mnemonicParsing="false" text="Search" />
+                        <Label layoutX="6.0" layoutY="47.0" text="Year : " />
+                        <ComboBox fx:id="yearCombo" layoutX="47.0" layoutY="43.0" prefHeight="25.0" prefWidth="96.0" />
+                        <Label layoutX="163.0" layoutY="47.0" text="Semester :" />
+                        <ComboBox fx:id="semesterCombo" layoutX="232.0" layoutY="43.0" prefHeight="25.0" prefWidth="96.0" />
+                     </children>
+                  </AnchorPane>
+               </children>
+            </VBox>
+         </children>
+      </FlowPane>
+   </center>
+</BorderPane>

@@ -1,0 +1,25 @@
+#button-save{
+	-fx-background-color: #2ecc71;
+	-fx-text-fill: white;
+}
+
+#button-save:hover{
+	-fx-background-color: #27ae60;
+}
+
+#button-save:pressed{{
+	-fx-background-color: gray;
+}
+
+#button-cancel{
+	-fx-background-color: #f1c40f;
+	-fx-text-fill: white;
+}
+
+#button-cancel:hover{
+	-fx-background-color: #f39c12;
+}
+
+#button-cancel:pressed{
+	-fx-background-color: gray;
+}
