@@ -84,6 +84,7 @@ public class ConfigController implements ControllerListener{
 		}
 	}
 	
+	@Deprecated
 	@FXML
 	public void handleSaveOnAction(ActionEvent event) throws Exception{
 		if(checkEmbedded.isSelected())

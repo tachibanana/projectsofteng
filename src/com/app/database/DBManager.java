@@ -9,6 +9,7 @@ import java.util.List;
 
 import com.app.model.Admin;
 import com.app.model.Course;
+import com.app.model.Employee;
 import com.app.model.Person;
 import com.app.model.Student;
 import com.app.model.Subject;
@@ -91,7 +92,14 @@ public class DBManager {
 					user.setAccessType(accessType);
 					user.setActivate(isActivate);
 					
+				}else if(accessType.equals("EMPLOYEE")){
+					user = new Employee(0,null);
+					user.setUsername(username);
+					user.setPassword(password);
+					user.setAccessType(accessType);
+					user.setActivate(isActivate);
 				}
+				
 				listOfUser.add(user);
 			}
 			return listOfUser;
@@ -162,10 +170,10 @@ public class DBManager {
 		}
 	}
 	
-	public synchronized void savePerson(Person person , String personId, String studentNumber){
+	public synchronized void savePerson(Person person , String personId, String studentNumber, String employeeNumber){
 		try{
 			String sql = "INSERT INTO tblperson(person_id , last_name , first_name,"
-					+ "middle_name , student_info) VALUES(? , ? , ? ,?, ?)";
+					+ "middle_name , student_info, employee_info) VALUES(? , ? , ? ,?, ?, ?)";
 			
 			PreparedStatement pst = conn.prepareStatement(sql);
 			pst.setString(1, personId);
@@ -173,6 +181,7 @@ public class DBManager {
 			pst.setString(3, person.getFirstName());
 			pst.setString(4, person.getMiddleName());
 			pst.setString(5, studentNumber);
+			pst.setString(6, employeeNumber);
 			
 			pst.executeUpdate();
 			
@@ -181,6 +190,7 @@ public class DBManager {
 		}
 	}
 	
+
 	public synchronized void saveUser(User user, String userId,  String personId){
 		try{
 			String sql = "INSERT INTO tbluser(user_id , username , password,"
@@ -211,6 +221,20 @@ public class DBManager {
 			pst.setString(3,student.getCourse());
 			pst.setString(4, student.getYear());
 			
+			pst.executeUpdate();
+			
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+	}
+	
+	public synchronized void saveEmployee(Employee employee){
+		try{
+			String sql = "INSERT INTO tbl_employee(employee_number , email) VALUES(? , ?)";
+			
+			PreparedStatement pst = conn.prepareStatement(sql);
+			pst.setLong(1, employee.getEmployeeNumber());
+			pst.setString(2, employee.getEmail());
 			pst.executeUpdate();
 			
 		}catch(Exception e){

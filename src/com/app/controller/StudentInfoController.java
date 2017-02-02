@@ -293,7 +293,7 @@ public class StudentInfoController implements ControllerListener , Initializable
 				
 				
 				manager.saveStudent(student);
-				manager.savePerson(student,personId, studentNumberTextfield.getText());
+				manager.savePerson(student,personId, studentNumberTextfield.getText(), "NONE");
 				manager.saveUser(student, userId, personId);
 				
 				lastnameTextfield.setDisable(true);

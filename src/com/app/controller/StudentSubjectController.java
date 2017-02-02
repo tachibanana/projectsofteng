@@ -41,7 +41,6 @@ public class StudentSubjectController implements ControllerListener, Initializab
 		manager = (DBManager) event.getManager();
 		for(Subject subject : manager.getAllSubjectByYearAndSem(1, 1)){
 			data.add(subject);
-			System.out.println(subject);
 		}
 	}
 

@@ -1,10 +1,6 @@
 package com.app.main;
 
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
-
 import com.app.database.DBManager;
-import com.app.database.DBUserLibrary;
 import com.app.database.DatabaseConnection;
 import com.app.database.MySQLConnection;
 import com.app.database.SQLiteConnection;
@@ -44,6 +40,9 @@ public class Main extends Application implements LoginListener{
 			//student
 			else if(user.getAccessType().equals("STUDENT"))
 				SubjectOptionWindow.display(manager);
+			else if(user.getAccessType().equals("EMPLOYEE"))
+				//SubjectOptionWindow.display(manager);
+				System.out.println("awesome");		
 						
 		}catch(Exception e){
 			e.printStackTrace();
@@ -57,6 +56,7 @@ public class Main extends Application implements LoginListener{
 		user = event.getUser();
 	}
 	
+	@Deprecated
 	//Initialize database connection
 	public Boolean initilizeDatabaseConn(){
 		try{

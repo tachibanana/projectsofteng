@@ -65,7 +65,7 @@ public class LoginController implements Initializable, ControllerListener{
 			loadingPane.setVisible(false);
 			imageView.setVisible(false);
 			
-			accessTypeOption.getItems().addAll(new String[] {"ADMIN" , "STUDENT"});
+			accessTypeOption.getItems().addAll(new String[] {"ADMIN" , "STUDENT", "EMPLOYEE"});
 			accessTypeOption.getSelectionModel().select(0);
 			
 			Image image = new Image(new FileInputStream(ResourceLoader.dir() + "/imp/img/icon/loading.gif"));
@@ -106,7 +106,8 @@ public class LoginController implements Initializable, ControllerListener{
 		attempt.setLastAttempt(Calendar.getInstance());
 
 		if(attempt.getNumberOfAttempt() <= 3){
-			if((user = manager.getUserWithUsernameAndPassword(username, password)) != null){
+			if((user = manager.getUserWithUsernameAndPassword(username, password)) != null
+					&& accessTypeOption.getSelectionModel().getSelectedItem().equals(user.getAccessType())){
 				isSuccess = true;
 				stage = ((Stage) ((Node)event.getSource()).getScene().getWindow());
 				

@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.Accordion?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.TitledPane?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.FlowPane?>
@@ -33,4 +35,36 @@
          </children>
       </FlowPane>
    </center>
+   <left>
+      <Accordion BorderPane.alignment="CENTER">
+        <panes>
+          <TitledPane animated="false" text="BSIT">
+            <content>
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <Button layoutY="4.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="198.0" text="1st year and 1st semester" />
+                        <Button layoutY="30.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="198.0" text="1st year and 2nd semester" />
+                        <Button layoutY="56.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="198.0" text="2nd year and 1st semester" />
+                        <Button layoutY="82.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="198.0" text="2nd year and 2nd semester" />
+                        <Button layoutY="108.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="198.0" text="3rd year and 1st semester" />
+                        <Button layoutY="134.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="198.0" text="3rd year and 2nd semester" />
+                        <Button layoutY="160.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="198.0" text="4th year and 1st semester" />
+                        <Button layoutY="186.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="198.0" text="4th year and 2nd semester" />
+                     </children>
+                  </AnchorPane>
+            </content>
+          </TitledPane>
+          <TitledPane animated="false" text="BSCEP">
+            <content>
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+            </content>
+          </TitledPane>
+          <TitledPane animated="false" text="BSIS">
+            <content>
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+            </content>
+          </TitledPane>
+        </panes>
+      </Accordion>
+   </left>
 </BorderPane>
