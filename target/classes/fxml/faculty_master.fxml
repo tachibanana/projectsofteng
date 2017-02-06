@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.FlowPane?>
+<?import javafx.scene.layout.VBox?>
+
+<FlowPane alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="566.0" prefWidth="807.0" style="-fx-background-color: #bdc3c7;" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.app.controller.FacultyMasterListController">
+   <children>
+      <VBox prefHeight="441.0" prefWidth="750.0" style="-fx-background-color: #ecf0f1;">
+         <children>
+            <VBox prefHeight="44.0" prefWidth="553.0" style="-fx-background-color: #f1c40f;" />
+            <VBox prefHeight="61.0" prefWidth="750.0">
+               <children>
+                  <FlowPane alignment="CENTER" prefHeight="200.0" prefWidth="200.0">
+                     <children>
+                        <AnchorPane prefHeight="56.0" prefWidth="643.0">
+                           <children>
+                              <Label layoutX="29.0" layoutY="12.0" prefHeight="24.0" prefWidth="111.0" text="COURSE TO TEACH :" />
+                              <ComboBox fx:id="dropdownCourseList" layoutX="160.0" layoutY="12.0" prefHeight="25.0" prefWidth="155.0" />
+                              <ComboBox fx:id="dropdownYearList" layoutX="435.0" layoutY="13.0" prefHeight="25.0" prefWidth="155.0" />
+                              <Label layoutX="373.0" layoutY="12.0" prefHeight="24.0" prefWidth="59.0" text="YEAR : " />
+                           </children>
+                        </AnchorPane>
+                     </children>
+                  </FlowPane>
+               </children>
+            </VBox>
+            <VBox prefHeight="45.0" prefWidth="750.0" />
+            <VBox prefHeight="277.0" prefWidth="750.0">
+               <children>
+                  <FlowPane alignment="CENTER" prefHeight="283.0" prefWidth="750.0">
+                     <children>
+                        <AnchorPane prefHeight="262.0" prefWidth="735.0">
+                           <children>
+                              <TableView fx:id="table1" layoutX="8.0" layoutY="14.0" prefHeight="200.0" prefWidth="355.0" />
+                              <TableView fx:id="table2" layoutX="372.0" layoutY="14.0" prefHeight="200.0" prefWidth="355.0" />
+                              <Button layoutX="234.0" layoutY="225.0" mnemonicParsing="false" onAction="#handleGenerateOnAction" prefHeight="36.0" prefWidth="266.0" text="GENERATE MASTER LIST" />
+                           </children>
+                        </AnchorPane>
+                     </children>
+                  </FlowPane>
+               </children>
+            </VBox>
+         </children>
+      </VBox>
+   </children>
+</FlowPane>

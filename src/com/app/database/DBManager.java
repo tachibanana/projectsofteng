@@ -177,6 +177,8 @@ public class DBManager {
 		try{
 			String sql = "INSERT INTO tblperson(person_id , last_name , first_name,"
 					+ "middle_name , student_info, employee_info) VALUES(? , ? , ? ,?, ?, ?)";
+			if(studentNumber.matches("0[0-9a-zA-Z]+"))
+				studentNumber.replace("0", "");
 			
 			PreparedStatement pst = conn.prepareStatement(sql);
 			pst.setString(1, personId);
@@ -276,10 +278,28 @@ public class DBManager {
 		return course;
 	}
 	
+	public Course getCourseById(String id){
+		Course course = null;
+		for(Course c : getListOfCourse()){
+			if(c.getCourseId().equalsIgnoreCase(id))
+				course = c;
+		}
+		return course;
+	}
+	
 	public Year getYearByCode(String code , String courseId){
 		Year year = null;
 		for(Year y : getListOfYearByCourseId(courseId)){
 			if(y.getYearCode().equalsIgnoreCase(code))
+				year = y;
+		}
+		return year;
+	}
+	
+	public Year getYearById(String id , String courseId){
+		Year year = null;
+		for(Year y : getListOfYearByCourseId(courseId)){
+			if(y.getYearId().equalsIgnoreCase(id))
 				year = y;
 		}
 		return year;
@@ -439,6 +459,29 @@ public class DBManager {
 				list.add(t);
 			}
 			return list;
+		}catch(Exception e){
+			e.printStackTrace();
+			return null;
+		}
+	}
+	
+	public Person getPersonByStudentInfo(String id){
+		try{
+			Person person = null;
+			String sql = "SELECT * FROM tblperson WHERE student_info = ? LIMIT 1";
+			PreparedStatement pst = conn.prepareStatement(sql);
+			pst.setString(1, id);
+			
+			ResultSet rs = pst.executeQuery();
+			if(rs.next()){
+				person = new Student();
+				person.setFirstName(rs.getString("first_name"));
+				person.setMiddleName(rs.getString("last_name"));
+				person.setLastName(rs.getString("middle_name"));
+			}
+			
+			return person;
+			
 		}catch(Exception e){
 			e.printStackTrace();
 			return null;

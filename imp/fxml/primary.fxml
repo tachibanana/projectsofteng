@@ -34,7 +34,7 @@
 				<Insets bottom="3.0" left="3.0" right="3.0" top="3.0" />
 			</BorderPane.margin>
 			<children>
-				<Label text="STATUS : Rafael Manuel has login" textFill="WHITE">
+				<Label text="STATUS : Good monrning sensei" textFill="WHITE">
 					<font>
 						<Font size="13.0" />
 					</font>

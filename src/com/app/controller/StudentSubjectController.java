@@ -3,6 +3,8 @@ package com.app.controller;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import javax.swing.JOptionPane;
+
 import com.app.database.DBManager;
 import com.app.event.ControllerEvent;
 import com.app.listener.ControllerListener;
@@ -146,6 +148,8 @@ public class StudentSubjectController implements ControllerListener, Initializab
 			}
 
 		}
+		
+		JOptionPane.showMessageDialog(null,"You add something");
 			
 	}
 
