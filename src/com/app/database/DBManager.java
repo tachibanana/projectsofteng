@@ -195,6 +195,30 @@ public class DBManager {
 		}
 	}
 	
+	public synchronized void savePerson(Person person , String personId, String studentNumber, String employeeNumber, boolean isAuto){
+		try{
+			
+			if(isAuto){
+				String sql = "INSERT INTO tblperson(last_name , first_name,"
+						+ "middle_name , student_info, employee_info) VALUES(? , ? ,?, ?, ?)";
+				
+				PreparedStatement pst = conn.prepareStatement(sql);
+				
+				pst.setString(1, person.getLastName());
+				pst.setString(2, person.getFirstName());
+				pst.setString(3, person.getMiddleName());
+				pst.setString(4, studentNumber);
+				pst.setString(5, employeeNumber);
+			
+			pst.executeUpdate();
+			
+			}else
+				savePerson(person, personId, studentNumber, employeeNumber);
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+	}
+	
 
 	public synchronized void saveUser(User user, String userId,  String personId){
 		try{
@@ -209,6 +233,28 @@ public class DBManager {
 			pst.setString(6, personId);
 			
 			pst.executeUpdate();
+			
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+	}
+	
+	public synchronized void saveUser(User user, String userId,  String personId, boolean isAuto){
+		try{
+			if(isAuto){
+				String sql = "INSERT INTO tbluser(username , password,"
+						+ "access_type , is_activated, personal_info) VALUES(?,?,?,?,?)";
+				PreparedStatement pst = conn.prepareStatement(sql);
+
+				pst.setString(1, user.getUsername());
+				pst.setString(2, user.getPassword());
+				pst.setString(3, user.getAccessType());
+				pst.setInt(4, (user.isActivate() ? 1 : 0));
+				pst.setString(5, personId);
+				
+				pst.executeUpdate();
+			}else
+				saveUser(user, userId, personId);
 			
 		}catch(Exception e){
 			e.printStackTrace();
@@ -305,6 +351,7 @@ public class DBManager {
 		return year;
 	}
 	
+	@Deprecated
 	public List<Subject> getAllSubjectByYearAndSem(int year, int semester){
 		try{
 			List<Subject> listOfSubject = new ArrayList<Subject>();

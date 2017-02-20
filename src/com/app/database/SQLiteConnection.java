@@ -7,6 +7,7 @@ public class SQLiteConnection extends DBUserLibrary implements DatabaseConnectio
 
 	public boolean isConnected = false;
 	public SQLiteConnection connection;
+	private final String DB_CATALOG = "dbjavafx"; 
 	
 	public SQLiteConnection(DBUserLibrary lib) {
 		super(lib.getUrl(), lib.getCatalog(), lib.getUser(), lib.getPassword(), lib.getClassName());
@@ -28,7 +29,7 @@ public class SQLiteConnection extends DBUserLibrary implements DatabaseConnectio
 
 	@Override
 	public String getConnectionURL() {
-		return  getUrl() + ":" + getCatalog();
+		return  getUrl() + ":" + DB_CATALOG;
 	}
 
 	@Override

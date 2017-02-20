@@ -54,6 +54,9 @@ public class LoginController implements Initializable, ControllerListener{
 	private Label messageLabel;
 	@FXML
 	private ComboBox<String> accessTypeOption;
+	@FXML
+	private ImageView imageLogo;
+	
 	private static DBManager manager;
 	private static LoginController loginController;
 	private static Attempt attempt;
@@ -69,7 +72,9 @@ public class LoginController implements Initializable, ControllerListener{
 			accessTypeOption.getSelectionModel().select(0);
 			
 			Image image = new Image(new FileInputStream(ResourceLoader.dir() + "/imp/img/icon/loading.gif"));
+			Image logo = new Image(new FileInputStream(ResourceLoader.dir() + "/imp/img/icon/ccs.png"));
 			imageView.setImage(image);
+			imageLogo.setImage(logo);
 			
 			buttonLogin.setDisable(true);
 			attempt = Logs.getLoginAttempt();

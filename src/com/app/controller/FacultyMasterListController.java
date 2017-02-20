@@ -90,6 +90,9 @@ public class FacultyMasterListController implements ControllerListener, Initiali
 		
 		initTable();
 		
+		dropdownYearList.getSelectionModel().select(0);
+		dropdownCourseList.getSelectionModel().select(0);
+		
 	}
 
 	@Override
@@ -198,10 +201,12 @@ public class FacultyMasterListController implements ControllerListener, Initiali
 				student.setCourse(manager.getCourseById(student.getCourse()).getCourseCode());
 				studentList.add(student);
 			}
-			
-			GeneratedStudentWindow.display(manager, studentList, subject.getId());
+			if(studentList.size() == 0)
+				JOptionPane.showMessageDialog(null ,  "No student erolled.");
+			else
+				GeneratedStudentWindow.display(manager, studentList, subject.getId());
 		}else
-			JOptionPane.showMessageDialog(null,"Select a subject.");
+			JOptionPane.showMessageDialog(null, "Select a subject.");
 	}
 
 }

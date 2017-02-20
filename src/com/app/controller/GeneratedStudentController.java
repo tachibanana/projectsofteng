@@ -39,6 +39,10 @@ public class GeneratedStudentController implements ControllerListener, Initializ
 	@SuppressWarnings("unchecked")
 	@Override
 	public void controllerLoad(ControllerEvent event) {
+		if(listOfStudent != null)
+			listOfStudent.clear();
+		data.clear();
+		
 		manager = event.getManager();
 		listOfStudent = (List<Student>) event.getAttribute();
 		subject = event.getClazz();
